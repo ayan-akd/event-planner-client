@@ -13,9 +13,13 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { LoaderCircle } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { RegisterValidationSchema } from "./RegisterValidationSchema";
 
 const RegisterForm = () => {
-  const form = useForm();
+  const form = useForm({
+    resolver: zodResolver(RegisterValidationSchema),
+  });
   const {
     formState: { isSubmitting },
   } = form;
