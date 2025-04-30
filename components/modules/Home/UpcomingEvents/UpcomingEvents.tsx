@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import SectionTitle from "../../shared/SectionTitle/SectionTitle";
 const UpcomingEvents = () => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
@@ -40,6 +41,10 @@ const UpcomingEvents = () => {
     // </div>
     <div className="">
       <MyContainer>
+        <SectionTitle
+          sectionTitle="Upcoming Events"
+          sectionSubTitle="Discover exciting public events happening soon — don’t miss out!"
+        />
         <Carousel
           setApi={setApi}
           opts={{
