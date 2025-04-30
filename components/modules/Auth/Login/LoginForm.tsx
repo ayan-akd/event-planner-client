@@ -15,8 +15,12 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { LoaderCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginValidationSchema } from "./LoginValidationSchema";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { userLogin } from "@/services/AuthServices.ts";
 
 const LoginForm = () => {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(loginValidationSchema),
   });
@@ -27,6 +31,18 @@ const LoginForm = () => {
   // Register Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+    const loginUser = toast.loading("User Login...");
+    try {
+      const res = await userLogin(data);
+      if (res?.success) {
+        toast.success(res?.message, { id: loginUser });
+        router.push("/");
+      } else {
+        toast.error(res?.message, { id: loginUser });
+      }
+    } catch (error) {
+      toast.error("Something went Wrong!", { id: loginUser });
+    }
   };
 
   return (
