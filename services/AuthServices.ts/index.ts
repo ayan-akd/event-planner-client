@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
-
+import { jwtDecode } from "jwt-decode";
 // Register User
 export const userRegister = async (userInfo: FieldValues) => {
   try {
@@ -46,4 +46,20 @@ export const userLogin = async (userInfo: FieldValues) => {
   } catch (error: any) {
     return Error(error);
   }
+};
+
+// Get Current Logged in User From Cookie
+export const getCurrentUser = async () => {
+  const accessToken = (await cookies()).get("event_planner_token")?.value;
+  let decodeData = null;
+  if (accessToken) {
+    decodeData = await jwtDecode(accessToken);
+    return decodeData;
+  } else {
+    return null;
+  }
+};
+
+export const logOutUser = async () => {
+  (await cookies()).delete("event_planner_token");
 };
