@@ -17,8 +17,7 @@ export default function Navbar() {
     <header className="border-b  bg-white w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
         <h1 className=" text-lg md:text-2xl font-black flex items-center">
-          Event
-          <Link href="/">Medi Mart</Link>
+          <Link href="/"> Evenzo</Link>
         </h1>
         <div className="max-w-md hidden md:flex flex-grow">
           <nav>
@@ -64,7 +63,7 @@ export default function Navbar() {
                   <Link href="/about">About</Link>
                 </DropdownMenuItem>
 
-                <DropdownMenuItem>
+                <DropdownMenuItem className="">
                   <Link href="/profile">
                     <Avatar>
                       <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />

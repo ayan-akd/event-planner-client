@@ -1,15 +1,13 @@
+import Hero from "@/components/modules/Home/Hero/Hero";
+import UpcomingEvents from "@/components/modules/Home/UpcomingEvents/UpcomingEvents";
 import { Button } from "@/components/ui/button";
 import React from "react";
 
 const HomePage = () => {
   return (
     <div>
-      <h2>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem maiores
-        in nemo, sapiente illo aspernatur voluptate nesciunt debitis quisquam
-        nostrum.
-      </h2>
-      <Button>Click Me</Button>
+      <Hero />
+      <UpcomingEvents />
     </div>
   );
 };
