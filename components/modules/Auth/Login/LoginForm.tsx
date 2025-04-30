@@ -18,9 +18,11 @@ import { loginValidationSchema } from "./LoginValidationSchema";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userLogin } from "@/services/AuthServices.ts";
+import { useUser } from "@/context/UserContext";
 
 const LoginForm = () => {
   const router = useRouter();
+  const { setIsLoading } = useUser();
   const form = useForm({
     resolver: zodResolver(loginValidationSchema),
   });
@@ -30,10 +32,10 @@ const LoginForm = () => {
 
   // Register Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
     const loginUser = toast.loading("User Login...");
     try {
       const res = await userLogin(data);
+      setIsLoading(true);
       if (res?.success) {
         toast.success(res?.message, { id: loginUser });
         router.push("/");

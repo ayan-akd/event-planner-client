@@ -12,7 +12,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUser } from "@/context/UserContext";
+import { logOutUser } from "@/services/AuthServices.ts";
 export default function Navbar() {
+  const { user, setIsLoading } = useUser();
+
+  // Handle Logout
+  const handleLogout = () => {
+    logOutUser();
+    setIsLoading(true);
+  };
   return (
     <header className="border-b  bg-white w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
@@ -64,55 +73,62 @@ export default function Navbar() {
                 </DropdownMenuItem>
 
                 <DropdownMenuItem className="">
-                  <Link href="/profile">
-                    <Avatar>
-                      <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />
-                      <AvatarFallback className="uppercase">
-                        Sadi
-                      </AvatarFallback>
-                    </Avatar>
-                  </Link>
-
-                  <Link href="/login">
-                    <Button className="">Login</Button>
-                  </Link>
+                  {user ? (
+                    <Link href="/profile">
+                      <Avatar>
+                        <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />
+                        <AvatarFallback className="uppercase">
+                          Sadi
+                        </AvatarFallback>
+                      </Avatar>
+                    </Link>
+                  ) : (
+                    <Link href="/login">
+                      <Button className="">Login</Button>
+                    </Link>
+                  )}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
           <div className="hidden md:flex">
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />
-                  <AvatarFallback className="uppercase">Sadi</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />
+                    <AvatarFallback className="uppercase">Sadi</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
 
-                <DropdownMenuItem>
-                  <Link href="/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/orders">Orders History</Link>
-                </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/profile">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/orders">Orders History</Link>
+                  </DropdownMenuItem>
 
-                <DropdownMenuItem>
-                  <Link href="/admin">Dashboard</Link>
-                </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/admin">Dashboard</Link>
+                  </DropdownMenuItem>
 
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">
-                  <LogOut /> Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Link href="/login">
-              <Button>Login</Button>
-            </Link>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleLogout}
+                  >
+                    <LogOut /> Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link href="/login">
+                <Button>Login</Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
