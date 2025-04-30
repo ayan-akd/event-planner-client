@@ -29,10 +29,10 @@ export default function Navbar() {
               </li>
               <li>
                 <Link
-                  href="/shop"
+                  href="/events"
                   className="transition-all hover:text-primary"
                 >
-                  Shop
+                  Events
                 </Link>
               </li>
               <li>
@@ -57,7 +57,7 @@ export default function Navbar() {
                   <Link href="/">Home</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/shop">Shop</Link>
+                  <Link href="/events">Events</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/about">About</Link>
