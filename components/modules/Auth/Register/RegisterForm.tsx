@@ -15,8 +15,12 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { LoaderCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterValidationSchema } from "./RegisterValidationSchema";
+import { userRegister } from "@/services/AuthServices.ts";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(RegisterValidationSchema),
   });
@@ -26,7 +30,18 @@ const RegisterForm = () => {
 
   // Register Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    const creatingUser = toast.loading("User Creating...");
+    try {
+      const res = await userRegister(data);
+      if (res?.success) {
+        toast.success(res?.message, { id: creatingUser });
+        router.push("/login");
+      } else {
+        toast.error(res?.message, { id: creatingUser });
+      }
+    } catch (error) {
+      toast.error("Something went Wrong!", { id: creatingUser });
+    }
   };
 
   return (
@@ -47,6 +62,19 @@ const RegisterForm = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Your Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} value={field.value || ""} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input {...field} value={field.value || ""} />
                     </FormControl>
