@@ -11,7 +11,7 @@ const Hero = () => {
         <div className="max-w-xl text-center mx-auto">
           <h1 className="text-3xl font-extrabold text-white sm:text-5xl">
             Your Event Our Passion
-            <strong className="block font-extrabold text-rose-600">
+            <strong className="block font-extrabold text-primary">
               Perfectly Planned
             </strong>
           </h1>
