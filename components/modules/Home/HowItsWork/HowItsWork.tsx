@@ -20,9 +20,9 @@ const HowItsWork = () => {
               <div className="flex justify-end ">
                 <Search className="md:size-10" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900">Browse Events</h3>
+              <h3 className="text-lg font-bold ">Browse Events</h3>
 
-              <p className="mt-0.5 text-sm text-gray-700">
+              <p className="mt-0.5 text-sm ">
                 Explore a wide range of public and private events. Use filters
                 and search to find events that match your interests.
               </p>
@@ -40,11 +40,11 @@ const HowItsWork = () => {
               <div className="flex justify-start ">
                 <CreditCard className="md:size-10" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900">
+              <h3 className="text-lg font-bold ">
                 Join or Pay to Register
               </h3>
 
-              <p className="mt-0.5 text-sm text-gray-700">
+              <p className="mt-0.5 text-sm ">
                 Click
                 <span className="bg-primary text-white text-xs py-[1px] px-1 rounded">
                   Join
@@ -67,9 +67,9 @@ const HowItsWork = () => {
               <div className="flex justify-end ">
                 <CheckCircle className="md:size-10" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900">Get Approved</h3>
+              <h3 className="text-lg font-bold ">Get Approved</h3>
 
-              <p className="mt-0.5 text-sm text-gray-700">
+              <p className="mt-0.5 text-sm ">
                 Once your request is submitted, event organizers will review and
                 approve your participation. You’ll get notified instantly after
                 approval.
@@ -87,11 +87,11 @@ const HowItsWork = () => {
               <div className="flex justify-start ">
                 <CalendarCheck className="md:size-10" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900">
+              <h3 className="text-lg font-bold ">
                 Attend & Enjoy
               </h3>
 
-              <p className="mt-0.5 text-sm text-gray-700">
+              <p className="mt-0.5 text-sm ">
                 Join the event at the scheduled time—online or in person. Don’t
                 forget to leave a review afterward!
               </p>

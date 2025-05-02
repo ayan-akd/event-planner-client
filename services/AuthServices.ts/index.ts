@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
@@ -32,6 +33,7 @@ export const userLogin = async (userInfo: FieldValues) => {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/sign-in`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

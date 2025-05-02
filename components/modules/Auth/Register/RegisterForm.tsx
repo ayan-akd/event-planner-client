@@ -18,6 +18,7 @@ import { RegisterValidationSchema } from "./RegisterValidationSchema";
 import { userRegister } from "@/services/AuthServices.ts";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { PasswordInput } from "@/components/ui/password-input";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -39,7 +40,7 @@ const RegisterForm = () => {
       } else {
         toast.error(res?.message, { id: creatingUser });
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went Wrong!", { id: creatingUser });
     }
   };
@@ -102,8 +103,7 @@ const RegisterForm = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
+                      <PasswordInput
                         {...field}
                         value={field.value || ""}
                       />

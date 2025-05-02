@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userLogin } from "@/services/AuthServices.ts";
 import { useUser } from "@/context/UserContext";
+import { PasswordInput } from "@/components/ui/password-input";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -42,7 +43,7 @@ const LoginForm = () => {
       } else {
         toast.error(res?.message, { id: loginUser });
       }
-    } catch (error) {
+    } catch  {
       toast.error("Something went Wrong!", { id: loginUser });
     }
   };
@@ -79,8 +80,7 @@ const LoginForm = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
+                      <PasswordInput
                         {...field}
                         value={field.value || ""}
                       />

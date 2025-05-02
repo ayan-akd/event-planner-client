@@ -1,5 +1,5 @@
 "use client";
-import { LogOut, MenuIcon, ShoppingBag } from "lucide-react";
+import { LogOut, MenuIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/context/UserContext";
 import { logOutUser } from "@/services/AuthServices.ts";
+import { ToggleButton } from "@/components/ui/ToggleButton";
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
 
@@ -23,7 +24,7 @@ export default function Navbar() {
     setIsLoading(true);
   };
   return (
-    <header className="border-b  bg-white w-full">
+    <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
         <h1 className=" text-lg md:text-2xl font-black flex items-center">
           <Link href="/"> Evenzo</Link>
@@ -56,7 +57,7 @@ export default function Navbar() {
           </nav>
         </div>
         <div className="flex gap-2">
-          <div className="md:hidden flex">
+          <div className="md:hidden flex gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger className="focus:outline-none">
                 <MenuIcon />
@@ -90,8 +91,9 @@ export default function Navbar() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <ToggleButton />
           </div>
-          <div className="hidden md:flex">
+          <div className="hidden md:flex gap-2">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -129,6 +131,7 @@ export default function Navbar() {
                 <Button>Login</Button>
               </Link>
             )}
+            <ToggleButton />
           </div>
         </div>
       </div>

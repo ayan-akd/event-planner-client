@@ -16,6 +16,7 @@ type TUserProvider = {
   isLoading: boolean;
   setUser: (user: TLoggedInUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  contextLogout: () => void;
 };
 
 // Create Context
@@ -35,8 +36,14 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     handleUser();
   }, [isLoading]);
 
+  const contextLogout = () => {
+    setUser(null);
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
+    <UserContext.Provider
+      value={{ user, setUser, isLoading, setIsLoading, contextLogout }}
+    >
       {children}
     </UserContext.Provider>
   );
