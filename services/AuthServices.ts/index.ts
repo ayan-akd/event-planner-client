@@ -17,9 +17,7 @@ export const userRegister = async (userInfo: FieldValues) => {
       }
     );
     const result = await res.json();
-    // if (result?.success) {
-    //   (await cookies()).set("medi_mart_tk", result?.data?.accessToken);
-    // }
+
     return result;
   } catch (error: any) {
     return Error(error);
@@ -43,6 +41,10 @@ export const userLogin = async (userInfo: FieldValues) => {
     const result = await res.json();
     if (result?.success) {
       (await cookies()).set("event_planner_token", result?.data?.accessToken);
+      (await cookies()).set(
+        "event_planner_refresh_token",
+        result?.data?.refreshToken
+      );
     }
     return result;
   } catch (error: any) {
