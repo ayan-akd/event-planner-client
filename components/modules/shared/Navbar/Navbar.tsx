@@ -23,6 +23,7 @@ export default function Navbar() {
     if (!user) {
       refreshUser();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // Handle Logout
   const handleLogout = () => {
@@ -60,6 +61,14 @@ export default function Navbar() {
                   About Us
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="transition-all hover:text-primary"
+                >
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
@@ -77,7 +86,10 @@ export default function Navbar() {
                   <Link href="/events">Events</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/about">About</Link>
+                  <Link href="/about">About Us</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/contact">Contact Us</Link>
                 </DropdownMenuItem>
 
                 <DropdownMenuItem className="">
@@ -92,7 +104,7 @@ export default function Navbar() {
                     </Link>
                   ) : (
                     <Link href="/login">
-                      <Button className="">Login</Button>
+                      <Button className="dark:text-white">Login</Button>
                     </Link>
                   )}
                 </DropdownMenuItem>
@@ -128,7 +140,7 @@ export default function Navbar() {
               </DropdownMenu>
             ) : (
               <Link href="/login">
-                <Button>Login</Button>
+                <Button className="dark:text-white">Login</Button>
               </Link>
             )}
             <ToggleButton />

@@ -1,4 +1,3 @@
-import { getAllEvents } from "@/services/Event";
 import CommonBanner from "../shared/CommonBanner/CommonBanner";
 import MyContainer from "../shared/MyContainer/MyContainer";
 import SectionTitle from "../shared/SectionTitle/SectionTitle";

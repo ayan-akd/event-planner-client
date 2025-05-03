@@ -56,10 +56,10 @@ const UpcomingEvents = () => {
           </CarouselContent>
         </Carousel>
         <div className="flex justify-end mt-2 gap-2">
-          <Button size="sm" onClick={() => api?.scrollTo(current - 1)}>
+          <Button className="dark:text-white" size="sm" onClick={() => api?.scrollTo(current - 1)}>
             <ArrowLeft />
           </Button>
-          <Button size="sm" onClick={() => api?.scrollTo(current + 1)}>
+          <Button className="dark:text-white" size="sm" onClick={() => api?.scrollTo(current + 1)}>
             <ArrowRight />
           </Button>
         </div>

@@ -24,7 +24,7 @@ const Hero = ({ data }: { data: TEvent }) => {
             {data?.description}
           </p>
           <div>
-            <Button className="cursor-pointer">Join Event</Button>
+            <Button className="cursor-pointer dark:text-white">Join Event</Button>
           </div>
         </div>
       </div>

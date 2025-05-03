@@ -52,7 +52,7 @@ const LoginForm = () => {
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center">
-      <div className="max-w-md w-full bg-white border p-7 md:p-10 rounded">
+      <div className="max-w-md w-full bg-white dark:bg-black border p-7 md:p-10 rounded">
         <div className="flex gap-2 border-b pb-3 mb-6">
           <div className="space-y-1">
             <h2 className="font-bold text-lg md:text-2xl">Evenzo</h2>
@@ -93,7 +93,7 @@ const LoginForm = () => {
               />
             </div>
 
-            <Button type="submit" className="w-full mt-2 cursor-pointer">
+            <Button type="submit" className="w-full mt-2 dark:text-white cursor-pointer">
               {isSubmitting ? (
                 <LoaderCircle className="animate-spin" />
               ) : (
