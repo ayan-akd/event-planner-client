@@ -4,7 +4,7 @@ const Pagination = () => {
       <li>
         <a
           href="#"
-          className="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180"
+          className="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180 dark:text-white"
           aria-label="Previous page"
         >
           <svg
@@ -34,7 +34,7 @@ const Pagination = () => {
       <li>
         <a
           href="#"
-          className="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180"
+          className="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180 dark:text-white"
           aria-label="Next page"
         >
           <svg

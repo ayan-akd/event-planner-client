@@ -8,7 +8,7 @@ const CommonBanner = ({
   subComponentTitle: string;
 }) => {
   return (
-    <div className="bg-rose-400/15 py-16 md:py-20 flex justify-center items-center">
+    <div className="bg-primary/15 py-16 md:py-20 flex justify-center items-center">
       <h3 className=" text-base md:text-xl 2xl:text-2xl font-bold">
         {mainComponentTitle} - {subComponentTitle}
       </h3>

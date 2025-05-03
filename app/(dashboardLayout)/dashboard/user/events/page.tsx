@@ -3,10 +3,10 @@ import UserDashboardEventsComponent from "@/components/dashboard-components/user
 import { getAllEvents } from "@/services/Event";
 
 export default async function UserDashboardEventsPage() {
-    const {data} = await getAllEvents();
+    const {data} = await getAllEvents({undefined});
     return (
         <div>
-            <ContentLayout title="EVENTS">
+            <ContentLayout title="MY EVENTS">
                 <UserDashboardEventsComponent events={data} />
             </ContentLayout>
         </div>

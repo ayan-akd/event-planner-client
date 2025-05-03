@@ -21,14 +21,14 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/context/UserContext";
-import { logout } from "@/services/auth";
 import { useRouter } from "next/navigation";
+import { logOutUser } from "@/services/AuthServices.ts";
 
 export function UserNav() {
   const {setIsLoading, contextLogout} = useUser();
   const router = useRouter();
     const handleLogOut = () => {
-        logout();
+        logOutUser();
         contextLogout();
         setIsLoading(true);
         router.push("/login");

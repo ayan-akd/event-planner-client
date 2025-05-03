@@ -35,6 +35,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { CustomModal } from "@/components/modules/shared/CustomModal";
 import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
+import Link from "next/link";
 
 type EventProps = {
   result: TEvent[];
@@ -99,9 +100,22 @@ export default function UserDashboardEventsComponent({
     },
     {
       accessorKey: "isPublic",
-      header: "Status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status <ArrowUpDown />
+        </Button>
+      ),
       cell: ({ row }) => (
-        <Badge variant="secondary">
+        <Badge
+          className={`${
+            row.getValue("isPublic")
+              ? "bg-blue-400 hover:bg-blue-500"
+              : "bg-amber-400 hover:bg-amber-500"
+          }`}
+        >
           {row.getValue("isPublic") ? "Public" : "Private"}
         </Badge>
       ),
@@ -118,13 +132,14 @@ export default function UserDashboardEventsComponent({
         const event = row.original;
         return (
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              //   onClick={() => handleView(medicine)}
-            >
-              <Eye className="h-4 w-4" />
-            </Button>
+            <Link href={`/dashboard/user/events/${event.id}`}>
+              <Button
+                variant="outline"
+                size="sm"
+              >
+                <Eye className="h-4 w-4" />
+              </Button>
+            </Link>
             <CustomModal
               trigger={
                 <Button variant="outline" size="sm">

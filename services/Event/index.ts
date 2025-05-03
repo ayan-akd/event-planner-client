@@ -41,3 +41,16 @@ export const getAdminSelectedEvents = async () => {
     return Error(error);
   }
 };
+
+// Get Single Events
+export const getSingleEvents = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${id}`
+    );
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};

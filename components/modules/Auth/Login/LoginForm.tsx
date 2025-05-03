@@ -16,13 +16,14 @@ import { LoaderCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginValidationSchema } from "./LoginValidationSchema";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { userLogin } from "@/services/AuthServices.ts";
 import { useUser } from "@/context/UserContext";
 import { PasswordInput } from "@/components/ui/password-input";
 
 const LoginForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { setIsLoading } = useUser();
   const form = useForm({
     resolver: zodResolver(loginValidationSchema),
@@ -39,7 +40,8 @@ const LoginForm = () => {
       setIsLoading(true);
       if (res?.success) {
         toast.success(res?.message, { id: loginUser });
-        router.push("/");
+        const redirectPath = searchParams.get("redirectPath") || "/";
+        router.push(redirectPath);
       } else {
         toast.error(res?.message, { id: loginUser });
       }
