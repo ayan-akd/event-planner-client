@@ -1,15 +1,25 @@
 "use client";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { X, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { EventTypes } from "@/constants";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function FilterSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showFilterButton, setShowFilterButton] = useState(true);
-
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  // Handle Search Query
+  const handleSearchQuery = (query: string, value: string | number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(query, value.toString());
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
   // Scroll Wise Handle Filter Button
   useEffect(() => {
     const handleScroll = () => {
@@ -52,36 +62,45 @@ export default function FilterSidebar() {
 
         <div className="flex gap-4 md:gap-0 md:justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">Filter</h2>
-          <Button size="sm" className="dark:text-white">
+          <Button
+            size="sm"
+            className="dark:text-white"
+            onClick={() => router.push(pathname, { scroll: false })}
+          >
             Clear Filters
           </Button>
         </div>
 
         {/* Search Events */}
         <div className="mb-6">
-          <Input placeholder="Search Event Here..." className="w-full" />
+          <Input
+            placeholder="Search Event Here..."
+            className="w-full"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              handleSearchQuery("searchTerm", e.target.value)
+            }
+          />
         </div>
 
         {/* Event Filter */}
         <div className="mb-6">
           <h2 className="text-lg font-semibold mb-4">Filter Events</h2>
           <RadioGroup className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value={"PublicFree"} id={"22"} />
-              <Label className="text-gray-500 dark:text-white font-light">Public Free</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value={"PublicPaid"} id={"22"} />
-              <Label className="text-gray-500 dark:text-white font-light">Public Paid</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value={"PrivateFree"} id={"2s2"} />
-              <Label className="text-gray-500 dark:text-white font-light">Private Free</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value={"PrivatePaid"} id={"2s2"} />
-              <Label className="text-gray-500 dark:text-white font-light">Private Paid</Label>
-            </div>
+            {EventTypes.map((eventType) => (
+              <div key={eventType} className="flex items-center space-x-2">
+                <RadioGroupItem
+                  value={eventType}
+                  id={eventType}
+                  onClick={() => handleSearchQuery("eventType", eventType)}
+                />
+                <Label className="text-gray-500 dark:text-white font-light">
+                  {eventType === "FREE_PUBLIC" && "Public Free"}
+                  {eventType === "PAID_PUBLIC" && "Public Paid"}
+                  {eventType === "FREE_PRIVATE" && "Private Free"}
+                  {eventType === "PAID_PRIVATE" && "Private Paid"}
+                </Label>
+              </div>
+            ))}
           </RadioGroup>
         </div>
       </div>

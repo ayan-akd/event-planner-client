@@ -12,3 +12,10 @@ export const monthNameList = [
   "November",
   "December",
 ];
+
+export const EventTypes = [
+  "FREE_PUBLIC",
+  "PAID_PUBLIC",
+  "FREE_PRIVATE",
+  "PAID_PRIVATE",
+];

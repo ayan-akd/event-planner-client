@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { TEvent } from "@/types/event.type";
 
 const EventItem = ({ event }: { event: TEvent }) => {
+  // Format Date
   // 31/06/2025
   const dateObj = new Date(event.startDate);
   const date = dateObj.getUTCDate();
