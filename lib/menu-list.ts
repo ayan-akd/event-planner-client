@@ -31,11 +31,11 @@ import {
   export function getMenuList(role: string): Group[] {
     const commonMenus = [
       {
-        groupLabel: "DASHBOARD CONTROLS",
+        groupLabel: "USER CONTROLS",
         menus: [
           {
-            href: "/dashboard/profile",
-            label: "Profile",
+            href: "/dashboard/user/events",
+            label: "My Events",
             icon: LayoutGrid,
             submenus: [],
           },
