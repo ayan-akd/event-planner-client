@@ -6,5 +6,5 @@ export const loginValidationSchema = z.object({
     .email("Invalid email format"),
   password: z
     .string({ required_error: "User Password is Required!" })
-    .min(8, "Password Must be 8 Characters"),
+    .min(6, "Password Must be 8 Characters"),
 });

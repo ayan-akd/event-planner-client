@@ -1,0 +1,20 @@
+export type TLoggedInUser = {
+  userId: string;
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+};
+
+// User Interface
+export interface IOrganizer {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  image?: string;
+  role?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}

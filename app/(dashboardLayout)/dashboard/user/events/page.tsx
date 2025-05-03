@@ -1,0 +1,14 @@
+import { ContentLayout } from "@/components/admin-panel/content-layout"
+import UserDashboardEventsComponent from "@/components/dashboard-components/user-dashboard/UserDashboardEventsComponent";
+import { getAllEvents } from "@/services/Event";
+
+export default async function UserDashboardEventsPage() {
+    const {data} = await getAllEvents();
+    return (
+        <div>
+            <ContentLayout title="EVENTS">
+                <UserDashboardEventsComponent events={data} />
+            </ContentLayout>
+        </div>
+    );
+}

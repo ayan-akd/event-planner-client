@@ -9,7 +9,7 @@ const UpcomingEventsItem = ({ event }: { event: TUpcomingEvent }) => {
       <div className="relative">
         <img className="w-full" src={event.image} alt={event.title} />
         <div className="hover:bg-transparent transition duration-300 absolute inset-0 bg-gray-900 opacity-25" />
-        <div className="absolute bottom-0 left-0 bg-indigo-600 px-4 py-2 text-white text-sm hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out flex gap-1 items-center">
+        <div className="absolute bottom-0 left-0 bg-primary px-4 py-2 text-white text-sm hover:bg-white hover:text-primary transition duration-500 ease-in-out flex gap-1 items-center">
           {event?.isFree ? (
             <>
               <BadgeDollarSign size={18} /> <span>Free</span>
@@ -20,7 +20,7 @@ const UpcomingEventsItem = ({ event }: { event: TUpcomingEvent }) => {
             </>
           )}
         </div>
-        <div className="text-sm absolute top-0 right-0 bg-indigo-600 px-4 text-white rounded-full h-16 w-16 flex flex-col items-center justify-center mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
+        <div className="text-sm absolute top-0 right-0 bg-primary px-4 text-white rounded-full h-16 w-16 flex flex-col items-center justify-center mt-3 mr-3 hover:bg-white hover:text-primary transition duration-500 ease-in-out">
           <span className="font-bold">
             {new Date(event.createdAt).getDate()}
           </span>
@@ -29,7 +29,7 @@ const UpcomingEventsItem = ({ event }: { event: TUpcomingEvent }) => {
       </div>
 
       <div className="px-6 py-4">
-        <h2 className="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out">
+        <h2 className="font-semibold text-lg inline-block hover:text-primary transition duration-500 ease-in-out">
           {event.title}
         </h2>
         <p className="text-gray-500 text-sm">{event.description}</p>

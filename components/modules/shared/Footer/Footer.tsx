@@ -4,7 +4,7 @@ import Link from "next/link";
 const Footer = () => {
   const date = new Date();
   return (
-    <footer className="bg-gray-100 mt-12 md:mt-16">
+    <footer className="mt-12 md:mt-16">
       <div className="mx-auto max-w-screen-xl px-4 pb-6 pt-16 sm:px-6 lg:px-8 lg:pt-24">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
@@ -90,12 +90,12 @@ const Footer = () => {
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
             <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900">About Us</p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-500">About Us</p>
 
               <ul className="mt-8 space-y-4 text-sm">
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     Company History
@@ -104,7 +104,7 @@ const Footer = () => {
 
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     Meet the Team
@@ -113,7 +113,7 @@ const Footer = () => {
 
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     Employee Handbook
@@ -122,7 +122,7 @@ const Footer = () => {
 
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     Careers
@@ -132,12 +132,12 @@ const Footer = () => {
             </div>
 
             <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900">Our Services</p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-500">Our Services</p>
 
               <ul className="mt-8 space-y-4 text-sm">
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     Home Delivery
@@ -146,7 +146,7 @@ const Footer = () => {
 
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     Store Pickup
@@ -155,7 +155,7 @@ const Footer = () => {
 
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     Express Delivery
@@ -165,12 +165,12 @@ const Footer = () => {
             </div>
 
             <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900">Helpful Links</p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-500">Helpful Links</p>
 
               <ul className="mt-8 space-y-4 text-sm">
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     FAQs
@@ -179,7 +179,7 @@ const Footer = () => {
 
                 <li>
                   <Link
-                    className="text-gray-700 transition hover:text-gray-700/75"
+                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
                     href="/"
                   >
                     Support
@@ -191,7 +191,7 @@ const Footer = () => {
                     className="group flex gap-1.5  justify-center md:justify-start"
                     href="/"
                   >
-                    <span className="text-gray-700 transition group-hover:text-gray-700/75">
+                    <span className="text-gray-700 dark:text-gray-500 transition group-hover:text-gray-700/75">
                       Live Chat
                     </span>
 
@@ -205,7 +205,7 @@ const Footer = () => {
             </div>
 
             <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900">Contact Us</p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-500">Contact Us</p>
 
               <ul className="mt-8 space-y-4 text-sm">
                 <li>
@@ -215,7 +215,7 @@ const Footer = () => {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="size-5 shrink-0 text-gray-900"
+                      className="size-5 shrink-0 text-gray-900 dark:text-gray-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -228,7 +228,7 @@ const Footer = () => {
                       />
                     </svg>
 
-                    <span className="flex-1 text-gray-700">john@doe.com</span>
+                    <span className="flex-1 text-gray-700 dark:text-gray-500">john@doe.com</span>
                   </Link>
                 </li>
 
@@ -239,7 +239,7 @@ const Footer = () => {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="size-5 shrink-0 text-gray-900"
+                      className="size-5 shrink-0 text-gray-900 dark:text-gray-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -252,14 +252,14 @@ const Footer = () => {
                       />
                     </svg>
 
-                    <span className="flex-1 text-gray-700">0123456789</span>
+                    <span className="flex-1 text-gray-700 dark:text-gray-500">0123456789</span>
                   </Link>
                 </li>
 
                 <li className="flex items-start justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="size-5 shrink-0 text-gray-900"
+                    className="size-5 shrink-0 text-gray-900 dark:text-gray-500"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -277,7 +277,7 @@ const Footer = () => {
                     />
                   </svg>
 
-                  <address className="-mt-0.5 flex-1 not-italic text-gray-700">
+                  <address className="-mt-0.5 flex-1 not-italic text-gray-700 dark:text-gray-500">
                     213 Lane, London, United Kingdom
                   </address>
                 </li>
