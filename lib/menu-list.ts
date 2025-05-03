@@ -5,7 +5,8 @@ import {
     LayoutList,
     UserPenIcon,
     DollarSignIcon,
-    HistoryIcon
+    User2,
+    Bell
   } from "lucide-react";
   
   type Submenu = {
@@ -30,7 +31,7 @@ import {
   export function getMenuList(role: string): Group[] {
     const commonMenus = [
       {
-        groupLabel: "",
+        groupLabel: "DASHBOARD CONTROLS",
         menus: [
           {
             href: "/dashboard/profile",
@@ -72,12 +73,17 @@ import {
   
     const userMenus = [
       {
-        groupLabel: "User Controls",
+        groupLabel: "SETTINGS",
         menus: [
           {
-            href: "/dashboard/user/orders",
-            label: "Order History",
-            icon: HistoryIcon,
+            href: "/dashboard/profile",
+            label: "Profile",
+            icon: User2,
+          },
+          {
+            href: "/dashboard/profile",
+            label: "Notifications",
+            icon: Bell,
           },
         ],
       },

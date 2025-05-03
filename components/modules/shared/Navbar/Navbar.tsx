@@ -57,7 +57,7 @@ export default function Navbar() {
           </nav>
         </div>
         <div className="flex gap-2">
-          <div className="md:hidden flex gap-2">
+          <div className="md:hidden flex justify-center items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger className="focus:outline-none">
                 <MenuIcon />
@@ -93,7 +93,7 @@ export default function Navbar() {
             </DropdownMenu>
             <ToggleButton />
           </div>
-          <div className="hidden md:flex gap-2">
+          <div className="hidden md:flex md:justify-center md:items-center gap-2">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger>
