@@ -15,12 +15,19 @@ import {
 import { useUser } from "@/context/UserContext";
 import { logOutUser } from "@/services/AuthServices.ts";
 import { ToggleButton } from "@/components/ui/ToggleButton";
+import { useEffect } from "react";
 export default function Navbar() {
-  const { user, setIsLoading } = useUser();
+  const { user, setIsLoading, contextLogout, refreshUser } = useUser();
 
+  useEffect(() => {
+    if (!user) {
+      refreshUser();
+    }
+  }, []);
   // Handle Logout
   const handleLogout = () => {
     logOutUser();
+    contextLogout();
     setIsLoading(true);
   };
   return (
@@ -107,14 +114,7 @@ export default function Navbar() {
                   <DropdownMenuSeparator />
 
                   <DropdownMenuItem>
-                    <Link href="/profile">Profile</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/orders">Orders History</Link>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem>
-                    <Link href="/admin">Dashboard</Link>
+                    <Link href="/dashboard/profile">Profile</Link>
                   </DropdownMenuItem>
 
                   <DropdownMenuSeparator />

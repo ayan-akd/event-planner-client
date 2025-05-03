@@ -69,7 +69,7 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
           <Button className="w-full my-3">Join Now</Button>
         </div>
       </div>
-      <div>
+      <div className="p-4">
         <EventDetailsTabs event={data} />
       </div>
     </>
