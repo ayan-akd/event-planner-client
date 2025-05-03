@@ -1,10 +1,9 @@
 import Events from "@/components/modules/Event";
-import { getAllEvents } from "@/services/Event";
-
-const EventPage = async () => {
+type TSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+const EventPage = async ({ searchParams }: { searchParams: TSearchParams }) => {
   return (
     <div>
-      <Events />
+      <Events searchParams={searchParams} />
     </div>
   );
 };
