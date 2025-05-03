@@ -3,10 +3,7 @@ import CommonBanner from "../shared/CommonBanner/CommonBanner";
 import MyContainer from "../shared/MyContainer/MyContainer";
 import SectionTitle from "../shared/SectionTitle/SectionTitle";
 import AllEvents from "./AllEvents/AllEvents";
-type TSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-const Events = async ({ searchParams }: { searchParams: TSearchParams }) => {
-  const query = await searchParams;
-  const { data } = await getAllEvents(query);
+const Events = async () => {
   return (
     <div>
       <CommonBanner mainComponentTitle="Home" subComponentTitle="Events" />
@@ -15,7 +12,8 @@ const Events = async ({ searchParams }: { searchParams: TSearchParams }) => {
           sectionSubTitle="Browse through all public and private events in one place."
           sectionTitle="Explore All Events"
         />
-        <AllEvents events={data} />
+
+        <AllEvents />
       </MyContainer>
     </div>
   );
