@@ -1,12 +1,14 @@
 import Hero from "@/components/modules/Home/Hero/Hero";
 import HowItsWork from "@/components/modules/Home/HowItsWork/HowItsWork";
 import UpcomingEvents from "@/components/modules/Home/UpcomingEvents/UpcomingEvents";
+import { getAdminSelectedEvents } from "@/services/Event";
 import React from "react";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const { data } = await getAdminSelectedEvents();
   return (
     <div>
-      <Hero />
+      <Hero data={data} />
       <UpcomingEvents />
       <HowItsWork />
     </div>
