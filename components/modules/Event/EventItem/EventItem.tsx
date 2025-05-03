@@ -1,14 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { TEvent } from "@/types/event.type";
+import { timeFormatter } from "@/utils/timeFormater";
+import Link from "next/link";
 
 const EventItem = ({ event }: { event: TEvent }) => {
-  // Format Date
-  // 31/06/2025
-  const dateObj = new Date(event.startDate);
-  const date = dateObj.getUTCDate();
-  const month = dateObj.getUTCMonth() + 1;
-  const year = dateObj.getUTCFullYear();
-  const formattedDate = `${date}/${month}/${year}`;
   return (
     <div className="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-105">
       <div className="relative">
@@ -22,33 +17,51 @@ const EventItem = ({ event }: { event: TEvent }) => {
         </div>
       </div>
       <div className="p-6">
-        <div className="flex items-center gap-2">
-          <dt className="text-gray-700">
-            <span className="sr-only"> Published on </span>
+        <div className="flex justify-between items-center gap-2">
+          <div>
+            <p className="space-x-[1px]">
+              <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
+                Organized By
+              </span>
+              <span className="text-sm"> {event?.organizer.name}</span>
+            </p>
+          </div>
+          <div className="flex items-center">
+            <dt className="text-gray-700">
+              <span className="sr-only"> Published on </span>
 
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-              />
-            </svg>
-          </dt>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
+                />
+              </svg>
+            </dt>
 
-          <dd className="text-xs text-gray-700">{formattedDate}</dd>
+            <dd className="text-xs text-gray-700">
+              {timeFormatter(event.startDate)}
+            </dd>
+          </div>
         </div>
         <h2 className="text-lg md:text-xl 2xl:text-2xl font-bold mb-2 text-gray-800">
           {event?.title}
         </h2>
         <p className="text-gray-600 mb-4">
-          {event?.description?.slice(0, 150)}
+          {event?.description?.slice(0, 150)}{" "}
+          <Link
+            className="text-sm text-primary italic"
+            href={`/events/${event.id}`}
+          >
+            [Details]
+          </Link>
         </p>
         <div className="flex items-center mb-4">
           <svg
