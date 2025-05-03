@@ -16,7 +16,7 @@ const LoggedInUserProviders = ({ children }: { children: ReactNode }) => {
       enableSystem
       disableTransitionOnChange
     >
-      <UserProvider>{children}</UserProvider>;
+      <UserProvider>{children}</UserProvider>
     </ThemeProvider>
   );
 };

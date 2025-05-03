@@ -1,25 +1,28 @@
 "use client";
-import { TEvent, TEventsResponse } from "@/types/event.type";
+import { TEvent } from "@/types/event.type";
 import Pagination from "../../shared/Pagination/Pagination";
 import EventItem from "../EventItem/EventItem";
 import FilterSidebar from "../FilterSidebar/FilterSidebar";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import EventSkeleton from "../../shared/EventSkeleton/EventSkeleton";
 import { useSearchParams } from "next/navigation";
 
 const AllEvents = () => {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
-  const query = new URLSearchParams();
 
   //  Get Search Params
   const searchParams = useSearchParams();
   const eventType = searchParams.get("eventType");
   const searchTerm = searchParams.get("searchTerm");
 
-  // Append Query Params
-  if (eventType) query.append("eventType", eventType);
-  if (searchTerm) query.append("searchTerm", searchTerm);
+  // Create query with useMemo
+  const query = useMemo(() => {
+    const queryParams = new URLSearchParams();
+    if (eventType) queryParams.append("eventType", eventType);
+    if (searchTerm) queryParams.append("searchTerm", searchTerm);
+    return queryParams;
+  }, [eventType, searchTerm]);
 
   // Fetch Data
   useEffect(() => {
@@ -32,6 +35,7 @@ const AllEvents = () => {
 
         const { data } = await res.json();
         setEvents(data.result);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.log(err);
       } finally {
@@ -39,7 +43,7 @@ const AllEvents = () => {
       }
     };
     fetchEvents();
-  }, [eventType, searchTerm]);
+  }, [query]);
   return (
     <div className="flex gap-5 my-10 relative">
       {/* Sidebar */}
@@ -66,5 +70,4 @@ const AllEvents = () => {
     </div>
   );
 };
-
 export default AllEvents;

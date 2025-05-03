@@ -6,7 +6,7 @@ export default async function UserDashboardEventsPage() {
     const {data} = await getAllEvents({undefined});
     return (
         <div>
-            <ContentLayout title="EVENTS">
+            <ContentLayout title="MY EVENTS">
                 <UserDashboardEventsComponent events={data} />
             </ContentLayout>
         </div>

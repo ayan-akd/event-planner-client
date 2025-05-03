@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { TEvent } from "@/types/event.type";
 import { timeFormatter } from "@/utils/timeFormater";
+import Image from "next/image";
 import Link from "next/link";
 
 const EventItem = ({ event }: { event: TEvent }) => {
   return (
     <div className="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-105">
       <div className="relative">
-        <img
+        <Image
+          width={500}
+          height={500}
           className="w-full h-64 object-cover"
           src={event?.image}
           alt="Nature scene"
@@ -57,7 +60,7 @@ const EventItem = ({ event }: { event: TEvent }) => {
         <p className="text-gray-600 mb-4">
           {event?.description?.slice(0, 150)}{" "}
           <Link
-            className="text-sm text-primary italic"
+            className="text-sm text-primary italic font-bold"
             href={`/events/${event.id}`}
           >
             [Details]
@@ -79,7 +82,7 @@ const EventItem = ({ event }: { event: TEvent }) => {
           <span className="text-lg md:text-xl 2xl:text-2xl font-bold text-gray-800">
             ${event?.fee}
           </span>
-          <Button>Join Now</Button>
+          <Button className="text-white">Join Now</Button>
         </div>
       </div>
     </div>

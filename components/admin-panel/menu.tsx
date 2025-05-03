@@ -12,34 +12,44 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-  TooltipProvider
+  TooltipProvider,
 } from "@/components/ui/tooltip";
 
 import { useUser } from "@/context/UserContext";
 import { logOutUser } from "@/services/AuthServices.ts";
 import { getMenuList } from "@/lib/menu-list";
-
-
+import { useEffect } from "react";
 
 interface MenuProps {
   isOpen: boolean | undefined;
 }
 
 export function Menu({ isOpen }: MenuProps) {
-  const {user,setIsLoading, contextLogout} = useUser();
+  const { user, isLoading, setIsLoading, refreshUser, contextLogout } =
+    useUser();
   const router = useRouter();
-  let role = "customer"
-  if (user) {
-    role = user.role as string;
-  }
   const pathname = usePathname();
+  useEffect(() => {
+    if (!user) {
+      refreshUser();
+    }
+  }, [refreshUser, user]);
+  const role = user?.role || "USER";
   const menuList = getMenuList(role);
   const handleLogOut = () => {
-      logOutUser();
-      contextLogout();
-      setIsLoading(true);
-      router.push("/login");
-    };
+    logOutUser();
+    contextLogout();
+    setIsLoading(true);
+    router.push("/login");
+  };
+
+  if (isLoading && !user) {
+    return (
+      <div className="flex justify-center items-center h-full p-4">
+        <div className="w-6 h-6 border-2 border-t-transparent border-primary rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -77,7 +87,9 @@ export function Menu({ isOpen }: MenuProps) {
                             <Button
                               variant={
                                 (active === undefined &&
-                                  (href === '/dashboard' ? pathname === href : pathname.startsWith(href))) ||
+                                  (href === "/dashboard"
+                                    ? pathname === href
+                                    : pathname.startsWith(href))) ||
                                 active
                                   ? "secondary"
                                   : "ghost"

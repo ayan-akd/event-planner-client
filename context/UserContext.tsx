@@ -17,6 +17,7 @@ type TUserProvider = {
   setUser: (user: TLoggedInUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   contextLogout: () => void;
+  refreshUser: () => Promise<void>;
 };
 
 // Create Context
@@ -28,13 +29,24 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   // Get Current User and Set
   const handleUser = async () => {
-    const user = await getCurrentUser();
-    setUser(user);
-    setIsLoading(false);
+    try {
+      const userData = await getCurrentUser();
+      setUser(userData);
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
   };
+  const refreshUser = async () => {
+    setIsLoading(true);
+    await handleUser();
+  };
+
   useEffect(() => {
     handleUser();
-  }, [isLoading]);
+  }, []);
 
   const contextLogout = () => {
     setUser(null);
@@ -42,7 +54,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, isLoading, setIsLoading, contextLogout }}
+      value={{ user, setUser, isLoading, setIsLoading, contextLogout,refreshUser  }}
     >
       {children}
     </UserContext.Provider>
