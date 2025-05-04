@@ -38,6 +38,7 @@ import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
 import Link from "next/link";
 import CreateEvent from "./CreateEvent/CreateEvent";
 import { deleteLoggedInUserSingleEvent } from "@/services/Event";
+import UpdateEvent from "./UpdateEvent/UpdateEvent";
 
 type EventProps = {
   result: TEvent[];
@@ -158,7 +159,7 @@ export default function UserDashboardEventsComponent({
               }
               //enter edit event from here
               //   content={<EditMedicineForm initialData={medicine} />}
-              content={<p>Edit Form here</p>}
+              content={<UpdateEvent event={event} />}
               title="Edit Event"
             />
             <ConfirmationBox

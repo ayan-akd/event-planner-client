@@ -1,5 +1,6 @@
 "use server";
 
+import { TEvent } from "@/types/event.type";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -112,6 +113,32 @@ export const deleteLoggedInUserSingleEvent = async (id: string) => {
           Authorization: (await cookies()).get("event_planner_token")
             ?.value as string,
         },
+      }
+    );
+    revalidateTag("EVENTS");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+// Update Logged In User Single Event
+export const updateLoggedInUserSingleEvent = async (
+  id: string,
+  payload: Partial<TEvent>
+) => {
+  console.log("From U API", id);
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("event_planner_token")
+            ?.value as string,
+        },
+        body: JSON.stringify(payload),
       }
     );
     revalidateTag("EVENTS");
