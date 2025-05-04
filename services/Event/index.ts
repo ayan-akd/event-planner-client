@@ -25,6 +25,26 @@ export const eventCreate = async (data: any) => {
   }
 };
 
+// Get Logged In User Event
+export const getLoggedInUserEvent = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/my-events`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("event_planner_token")
+            ?.value as string,
+        },
+      }
+    );
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
 // Get All Events
 export const getAllEvents = async (query: {
   [key: string]: string | string[] | undefined;
@@ -75,6 +95,27 @@ export const getSingleEvents = async (id: string) => {
     );
     const result = await res.json();
     return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+// Delete Logged In User Single Event
+export const deleteLoggedInUserSingleEvent = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("event_planner_token")
+            ?.value as string,
+        },
+      }
+    );
+    revalidateTag("EVENTS");
+    return res.json();
   } catch (error: any) {
     return Error(error);
   }

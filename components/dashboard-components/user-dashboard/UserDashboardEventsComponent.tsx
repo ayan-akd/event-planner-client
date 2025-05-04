@@ -37,6 +37,7 @@ import { CustomModal } from "@/components/modules/shared/CustomModal";
 import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
 import Link from "next/link";
 import CreateEvent from "./CreateEvent/CreateEvent";
+import { deleteLoggedInUserSingleEvent } from "@/services/Event";
 
 type EventProps = {
   result: TEvent[];
@@ -55,8 +56,19 @@ export default function UserDashboardEventsComponent({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
-  const handleDelete = (id: string) => {
-    toast.success(`Event with id ${id} deleted`);
+  // Logged In User Single Event Delete
+  const handleDelete = async (id: string) => {
+    const eventDeleting = toast.loading("Event Deleting...");
+    try {
+      const res = await deleteLoggedInUserSingleEvent(id);
+      if (res.success) {
+        toast.success(res.message, { id: eventDeleting });
+      } else {
+        toast.error(res.message, { id: eventDeleting });
+      }
+    } catch (error) {
+      toast.error("Something went wrong!", { id: eventDeleting });
+    }
   };
 
   const columns: ColumnDef<TEvent>[] = [
