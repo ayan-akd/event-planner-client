@@ -27,10 +27,23 @@ export const eventCreate = async (data: any) => {
 };
 
 // Get Logged In User Event
-export const getLoggedInUserEvent = async () => {
+export const getLoggedInUserEvent = async (
+  searchTerm: string,
+  page?: string
+) => {
+  const params = new URLSearchParams();
+  const pageNumber = page || 1;
+  // searchTerm
+  if (searchTerm) {
+    params.append("searchTerm", searchTerm.toString());
+  }
+  params.append("page", pageNumber.toString());
+  params.append("limit", "8");
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/my-events`,
+      `${
+        process.env.NEXT_PUBLIC_API_BASE_URL
+      }/events/my-events?${params.toString()}`,
       {
         method: "GET",
         headers: {

@@ -25,8 +25,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
   return (
     <ul className="flex justify-center gap-1 text-gray-900">
       <li onClick={handlePrevious} className="cursor-pointer">
-        <a
-          href="#"
+        <span
           className="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180 dark:text-white"
           aria-label="Previous page"
         >
@@ -42,7 +41,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
               clipRule="evenodd"
             />
           </svg>
-        </a>
+        </span>
       </li>
 
       {[...Array(totalPages)]?.map((_, idx) => (

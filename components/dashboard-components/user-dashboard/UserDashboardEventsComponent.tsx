@@ -32,13 +32,15 @@ import { Badge } from "@/components/ui/badge";
 import { Trash2, Edit } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { CustomModal } from "@/components/modules/shared/CustomModal";
 import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
 import Link from "next/link";
 import CreateEvent from "./CreateEvent/CreateEvent";
 import { deleteLoggedInUserSingleEvent } from "@/services/Event";
 import UpdateEvent from "./UpdateEvent/UpdateEvent";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Pagination from "@/components/modules/shared/Pagination/Pagination";
 
 type EventProps = {
   result: TEvent[];
@@ -46,6 +48,7 @@ type EventProps = {
     limit: number;
     page: number;
     total: number;
+    totalPage: number;
   };
 };
 
@@ -56,7 +59,10 @@ export default function UserDashboardEventsComponent({
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const totalPage = events?.meta.totalPage;
   // Logged In User Single Event Delete
   const handleDelete = async (id: string) => {
     const eventDeleting = toast.loading("Event Deleting...");
@@ -148,10 +154,10 @@ export default function UserDashboardEventsComponent({
         const startDate = new Date(row.original.startDate);
         const endDate = new Date(row.original.endDate);
         const currentDate = new Date();
-        
+
         let status = "";
         let badgeColor = "";
-        
+
         if (currentDate < startDate) {
           status = "Upcoming";
           badgeColor = "bg-blue-400 hover:bg-blue-500";
@@ -162,12 +168,8 @@ export default function UserDashboardEventsComponent({
           status = "Completed";
           badgeColor = "bg-gray-400 hover:bg-gray-500";
         }
-        
-        return (
-          <Badge className={badgeColor}>
-            {status}
-          </Badge>
-        );
+
+        return <Badge className={badgeColor}>{status}</Badge>;
       },
     },
     {
@@ -228,6 +230,13 @@ export default function UserDashboardEventsComponent({
       columnVisibility,
     },
   });
+
+  //  Handle Searching
+  const handleSearchQuery = (query: string, value: string | number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(query, value.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  };
   return (
     <div className="w-full">
       <div className="flex justify-between items-center">
@@ -243,7 +252,13 @@ export default function UserDashboardEventsComponent({
         />
       </div>
       <div className="flex items-center py-4">
-        <Input placeholder="Filter by title..." className="max-w-sm" />
+        <Input
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            handleSearchQuery("searchTerm", e.target.value)
+          }
+          placeholder="Search by title..."
+          className="max-w-sm"
+        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -317,6 +332,9 @@ export default function UserDashboardEventsComponent({
           </Table>
         </div>
       )}
+      <div className="mt-3">
+        <Pagination totalPages={totalPage} />
+      </div>
     </div>
   );
 }
