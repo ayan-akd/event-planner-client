@@ -23,7 +23,7 @@ export default function Navbar() {
     if (!user) {
       refreshUser();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // Handle Logout
   const handleLogout = () => {
@@ -31,6 +31,9 @@ export default function Navbar() {
     contextLogout();
     setIsLoading(true);
   };
+  const image =
+    user?.profileImage ||
+    "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png";
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
@@ -96,9 +99,9 @@ export default function Navbar() {
                   {user ? (
                     <Link href="/profile">
                       <Avatar>
-                        <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />
+                        <AvatarImage src={image} />
                         <AvatarFallback className="uppercase">
-                          Sadi
+                          USER
                         </AvatarFallback>
                       </Avatar>
                     </Link>
@@ -117,7 +120,7 @@ export default function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
-                    <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />
+                    <AvatarImage src={image} />
                     <AvatarFallback className="uppercase">Sadi</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
