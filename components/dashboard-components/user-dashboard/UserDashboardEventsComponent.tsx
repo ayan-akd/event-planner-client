@@ -66,7 +66,7 @@ export default function UserDashboardEventsComponent({
       } else {
         toast.error(res.message, { id: eventDeleting });
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!", { id: eventDeleting });
     }
   };
@@ -196,7 +196,6 @@ export default function UserDashboardEventsComponent({
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">My Events</h1>
         <CustomModal
-          //   content={<CreateMedicineForm />}
           content={<CreateEvent />}
           trigger={
             <Button className="h-8" effect={"shine"}>
