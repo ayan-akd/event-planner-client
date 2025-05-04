@@ -19,7 +19,7 @@ export const eventCreate = async (data: any) => {
         body: JSON.stringify(data),
       }
     );
-    revalidateTag("EVENTS");
+    await revalidateTag("EVENTS");
     return res.json();
   } catch (error: any) {
     return Error(error);
@@ -37,6 +37,9 @@ export const getLoggedInUserEvent = async () => {
           "Content-Type": "application/json",
           Authorization: (await cookies()).get("event_planner_token")
             ?.value as string,
+        },
+        next: {
+          tags: ["EVENTS"],
         },
       }
     );
@@ -63,6 +66,9 @@ export const getAllEvents = async (query: {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/events?${params.toString()}`,
       {
         method: "GET",
+        next: {
+          tags: ["EVENTS"],
+        },
       }
     );
     const result = await res.json();
@@ -79,6 +85,9 @@ export const getAdminSelectedEvents = async () => {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/hero-event`,
       {
         method: "GET",
+        next: {
+          tags: ["ADMIN-EVENTS"],
+        }
       }
     );
     const result = await res.json();
@@ -115,7 +124,7 @@ export const deleteLoggedInUserSingleEvent = async (id: string) => {
         },
       }
     );
-    revalidateTag("EVENTS");
+    await revalidateTag("EVENTS");
     return res.json();
   } catch (error: any) {
     return Error(error);
@@ -141,7 +150,7 @@ export const updateLoggedInUserSingleEvent = async (
         body: JSON.stringify(payload),
       }
     );
-    revalidateTag("EVENTS");
+    await revalidateTag("EVENTS");
     return res.json();
   } catch (error: any) {
     return Error(error);

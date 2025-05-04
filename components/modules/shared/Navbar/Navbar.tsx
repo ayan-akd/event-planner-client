@@ -94,10 +94,13 @@ export default function Navbar() {
                 <DropdownMenuItem>
                   <Link href="/contact">Contact Us</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/dashboard/profile">Dashboard</Link>
+                </DropdownMenuItem>
 
                 <DropdownMenuItem className="">
                   {user ? (
-                    <Link href="/profile">
+                    <Link href="/dashboard/profile">
                       <Avatar>
                         <AvatarImage src={image} />
                         <AvatarFallback className="uppercase">
@@ -121,16 +124,16 @@ export default function Navbar() {
                 <DropdownMenuTrigger>
                   <Avatar>
                     <AvatarImage src={image} />
-                    <AvatarFallback className="uppercase">Sadi</AvatarFallback>
+                    <AvatarFallback className="uppercase">USER</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem>
-                    <Link href="/dashboard/profile">Profile</Link>
-                  </DropdownMenuItem>
+                  <Link href="/dashboard/profile">
+                    <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  </Link>
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
