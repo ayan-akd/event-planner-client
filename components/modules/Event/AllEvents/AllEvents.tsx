@@ -6,23 +6,27 @@ import FilterSidebar from "../FilterSidebar/FilterSidebar";
 import { useEffect, useMemo, useState } from "react";
 import EventSkeleton from "../../shared/EventSkeleton/EventSkeleton";
 import { useSearchParams } from "next/navigation";
+import { set } from "date-fns";
 
 const AllEvents = () => {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
 
   //  Get Search Params
   const searchParams = useSearchParams();
   const eventType = searchParams.get("eventType");
   const searchTerm = searchParams.get("searchTerm");
+  const page = searchParams.get("page");
 
   // Create query with useMemo
   const query = useMemo(() => {
     const queryParams = new URLSearchParams();
     if (eventType) queryParams.append("eventType", eventType);
     if (searchTerm) queryParams.append("searchTerm", searchTerm);
+    if (page) queryParams.append("page", page);
     return queryParams;
-  }, [eventType, searchTerm]);
+  }, [eventType, searchTerm, page]);
 
   // Fetch Data
   useEffect(() => {
@@ -34,8 +38,9 @@ const AllEvents = () => {
         );
 
         const { data } = await res.json();
+        setTotalPages(data.meta.totalPage);
         setEvents(data.result);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.log(err);
       } finally {
@@ -64,7 +69,7 @@ const AllEvents = () => {
           )}
         </div>
         <div className="mt-6">
-          <Pagination />
+          <Pagination totalPages={totalPages} />
         </div>
       </div>
     </div>
