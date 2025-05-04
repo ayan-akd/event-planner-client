@@ -1,5 +1,30 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
+
+// Create Event
+export const eventCreate = async (data: any) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/create`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("event_planner_token")
+            ?.value as string,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    revalidateTag("EVENTS");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
 // Get All Events
 export const getAllEvents = async (query: {
   [key: string]: string | string[] | undefined;

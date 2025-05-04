@@ -2,7 +2,9 @@ import { z } from "zod";
 
 export const eventCreateValidationSchema = z.object({
   title: z.string({ required_error: "Event Title Required!" }),
-  image: z.string({ required_error: "Event Image is Required!" }),
+  image: z.instanceof(File, {
+    message: "Event Image is Required and must be a file!",
+  }),
   description: z.string({ required_error: "Event Details is Required!" }),
   type: z.string({ required_error: "Event Type is Required!" }),
   fee: z.string({ required_error: "Event Fee is Required!" }),

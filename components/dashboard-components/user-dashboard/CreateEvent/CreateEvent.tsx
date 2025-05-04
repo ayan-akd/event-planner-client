@@ -39,12 +39,15 @@ import React from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import { eventCreateValidationSchema } from "./EventCreateValidation";
+import uploadImage from "@/utils/imageUploadToCloudinary";
+import { eventCreate } from "@/services/Event";
 
 const CreateEvent = () => {
   const [date, setDate] = React.useState<Date>();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setIsLoading } = useUser();
+  // const form = useForm();
   const form = useForm({ resolver: zodResolver(eventCreateValidationSchema) });
   const {
     formState: { isSubmitting },
@@ -53,25 +56,27 @@ const CreateEvent = () => {
   //  Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const createEvent = toast.loading("Creating Event...");
-    const modifiedData = {
-      ...data,
-      isPublic: data.isPublic === "true" ? true : false,
-      fee: Number(data.fee),
-    };
     console.log(data);
-    // try {
-    //   const res = await userLogin(data);
-    //   setIsLoading(true);
-    //   if (res?.success) {
-    //     toast.success(res?.message, { id: createEvent });
-    //     const redirectPath = searchParams.get("redirectPath") || "/";
-    //     router.push(redirectPath);
-    //   } else {
-    //     toast.error(res?.message, { id: createEvent });
-    //   }
-    // } catch {
-    //   toast.error("Something went Wrong!", { id: createEvent });
-    // }
+
+    const imageUrl = await uploadImage(data.image);
+    try {
+      const modifiedData = {
+        ...data,
+        isPublic: data.isPublic === "true" ? true : false,
+        fee: Number(data.fee),
+        image: imageUrl,
+      };
+      const res = await eventCreate(modifiedData);
+      setIsLoading(true);
+      if (res?.success) {
+        form.reset();
+        toast.success(res?.message, { id: createEvent });
+      } else {
+        toast.error(res?.message, { id: createEvent });
+      }
+    } catch {
+      toast.error("Something went Wrong!", { id: createEvent });
+    }
   };
 
   return (
