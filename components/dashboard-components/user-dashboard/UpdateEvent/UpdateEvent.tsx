@@ -77,7 +77,6 @@ const UpdateEvent = ({ event }: { event: TEvent }) => {
       };
       //  Create Event
       const res = await updateLoggedInUserSingleEvent(event?.id, modifiedData);
-      console.log(res);
       setIsLoading(true);
       // Success
       if (res?.success) {
@@ -351,7 +350,7 @@ const UpdateEvent = ({ event }: { event: TEvent }) => {
             {isSubmitting ? (
               <LoaderCircle className="animate-spin" />
             ) : (
-              "Create"
+              "Update"
             )}
           </Button>
         </form>
