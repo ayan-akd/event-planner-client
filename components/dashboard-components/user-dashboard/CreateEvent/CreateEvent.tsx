@@ -38,13 +38,14 @@ import { format } from "date-fns";
 import React from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
+import { eventCreateValidationSchema } from "./EventCreateValidation";
 
 const CreateEvent = () => {
   const [date, setDate] = React.useState<Date>();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setIsLoading } = useUser();
-  const form = useForm();
+  const form = useForm({ resolver: zodResolver(eventCreateValidationSchema) });
   const {
     formState: { isSubmitting },
   } = form;
@@ -52,6 +53,11 @@ const CreateEvent = () => {
   //  Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const createEvent = toast.loading("Creating Event...");
+    const modifiedData = {
+      ...data,
+      isPublic: data.isPublic === "true" ? true : false,
+      fee: Number(data.fee),
+    };
     console.log(data);
     // try {
     //   const res = await userLogin(data);
@@ -292,11 +298,15 @@ const CreateEvent = () => {
             <FormField
               control={form.control}
               name="image"
-              render={({ field }) => (
+              render={({ field: { onChange, value, ...field } }) => (
                 <FormItem>
-                  <FormLabel>Event Banner</FormLabel>
+                  <FormLabel>Image</FormLabel>
                   <FormControl>
-                    <Input type="file" {...field} value={field.value || ""} />
+                    <Input
+                      type="file"
+                      {...field}
+                      onChange={(e) => onChange(e.target.files?.[0])}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
