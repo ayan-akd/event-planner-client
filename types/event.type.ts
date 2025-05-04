@@ -1,5 +1,8 @@
+import { TInvitation } from "./invitation.type";
 import { TMeta } from "./meta.type";
-import { IOrganizer } from "./user.types";
+import { TParticipant } from "./participant.type";
+import { TReview } from "./review.type";
+import { IUser } from "./user.types";
 
 export type TEvent = {
   id: string;
@@ -15,10 +18,10 @@ export type TEvent = {
   isHero: boolean;
   isDeleted: boolean;
   organizerId: string;
-  organizer: IOrganizer;
-  participants: any[];
-  invitations: any[];
-  reviews: any[];
+  organizer: IUser;
+  participants: TParticipant[];
+  invitations: TInvitation[];
+  reviews: TReview[];
   createdAt: string;
   updatedAt: string;
 };

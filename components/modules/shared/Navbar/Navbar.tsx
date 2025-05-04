@@ -23,7 +23,7 @@ export default function Navbar() {
     if (!user) {
       refreshUser();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // Handle Logout
   const handleLogout = () => {
@@ -31,6 +31,9 @@ export default function Navbar() {
     contextLogout();
     setIsLoading(true);
   };
+  const image =
+    user?.profileImage ||
+    "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png";
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
@@ -91,20 +94,23 @@ export default function Navbar() {
                 <DropdownMenuItem>
                   <Link href="/contact">Contact Us</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/dashboard/profile">Dashboard</Link>
+                </DropdownMenuItem>
 
                 <DropdownMenuItem className="">
                   {user ? (
-                    <Link href="/profile">
+                    <Link href="/dashboard/profile">
                       <Avatar>
-                        <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />
+                        <AvatarImage src={image} />
                         <AvatarFallback className="uppercase">
-                          Sadi
+                          USER
                         </AvatarFallback>
                       </Avatar>
                     </Link>
                   ) : (
                     <Link href="/login">
-                      <Button className="dark:text-white">Login</Button>
+                      <Button effect={"shine"} className="dark:text-white">Login</Button>
                     </Link>
                   )}
                 </DropdownMenuItem>
@@ -117,17 +123,17 @@ export default function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
-                    <AvatarImage src="https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png" />
-                    <AvatarFallback className="uppercase">Sadi</AvatarFallback>
+                    <AvatarImage src={image} />
+                    <AvatarFallback className="uppercase">USER</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem>
-                    <Link href="/dashboard/profile">Profile</Link>
-                  </DropdownMenuItem>
+                  <Link href="/dashboard/profile">
+                    <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  </Link>
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
@@ -140,7 +146,7 @@ export default function Navbar() {
               </DropdownMenu>
             ) : (
               <Link href="/login">
-                <Button className="dark:text-white">Login</Button>
+                <Button effect={"shine"} className="dark:text-white">Login</Button>
               </Link>
             )}
             <ToggleButton />

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { TEvent } from "@/types/event.type";
+import Link from "next/link";
 
 const Hero = ({ data }: { data: TEvent }) => {
   return (
@@ -24,7 +25,11 @@ const Hero = ({ data }: { data: TEvent }) => {
             {data?.description}
           </p>
           <div>
-            <Button className="cursor-pointer dark:text-white">Join Event</Button>
+            <Link href={`/events/${data?.id}`}>
+              <Button effect={"shine"} className="cursor-pointer dark:text-white">
+                Join Event
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

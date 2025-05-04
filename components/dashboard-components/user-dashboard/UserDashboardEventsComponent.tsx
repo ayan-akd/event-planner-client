@@ -32,10 +32,15 @@ import { Badge } from "@/components/ui/badge";
 import { Trash2, Edit } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { CustomModal } from "@/components/modules/shared/CustomModal";
 import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
 import Link from "next/link";
+import CreateEvent from "./CreateEvent/CreateEvent";
+import { deleteLoggedInUserSingleEvent } from "@/services/Event";
+import UpdateEvent from "./UpdateEvent/UpdateEvent";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Pagination from "@/components/modules/shared/Pagination/Pagination";
 
 type EventProps = {
   result: TEvent[];
@@ -43,6 +48,7 @@ type EventProps = {
     limit: number;
     page: number;
     total: number;
+    totalPage: number;
   };
 };
 
@@ -53,9 +59,23 @@ export default function UserDashboardEventsComponent({
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-
-  const handleDelete = (id: string) => {
-    toast.success(`Event with id ${id} deleted`);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const totalPage = events?.meta.totalPage;
+  // Logged In User Single Event Delete
+  const handleDelete = async (id: string) => {
+    const eventDeleting = toast.loading("Event Deleting...");
+    try {
+      const res = await deleteLoggedInUserSingleEvent(id);
+      if (res.success) {
+        toast.success(res.message, { id: eventDeleting });
+      } else {
+        toast.error(res.message, { id: eventDeleting });
+      }
+    } catch {
+      toast.error("Something went wrong!", { id: eventDeleting });
+    }
   };
 
   const columns: ColumnDef<TEvent>[] = [
@@ -105,7 +125,7 @@ export default function UserDashboardEventsComponent({
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Status <ArrowUpDown />
+          Public/Private <ArrowUpDown />
         </Button>
       ),
       cell: ({ row }) => (
@@ -121,6 +141,38 @@ export default function UserDashboardEventsComponent({
       ),
     },
     {
+      accessorKey: "status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status <ArrowUpDown />
+        </Button>
+      ),
+      cell: ({ row }) => {
+        const startDate = new Date(row.original.startDate);
+        const endDate = new Date(row.original.endDate);
+        const currentDate = new Date();
+
+        let status = "";
+        let badgeColor = "";
+
+        if (currentDate < startDate) {
+          status = "Upcoming";
+          badgeColor = "bg-blue-400 hover:bg-blue-500";
+        } else if (currentDate >= startDate && currentDate <= endDate) {
+          status = "Ongoing";
+          badgeColor = "bg-green-400 hover:bg-green-500";
+        } else {
+          status = "Completed";
+          badgeColor = "bg-gray-400 hover:bg-gray-500";
+        }
+
+        return <Badge className={badgeColor}>{status}</Badge>;
+      },
+    },
+    {
       accessorKey: "organizer",
       header: "Organizer",
       cell: ({ row }) => row.original.organizer.email,
@@ -133,10 +185,7 @@ export default function UserDashboardEventsComponent({
         return (
           <div className="flex gap-2">
             <Link href={`/dashboard/user/events/${event.id}`}>
-              <Button
-                variant="outline"
-                size="sm"
-              >
+              <Button variant="outline" size="sm">
                 <Eye className="h-4 w-4" />
               </Button>
             </Link>
@@ -148,13 +197,13 @@ export default function UserDashboardEventsComponent({
               }
               //enter edit event from here
               //   content={<EditMedicineForm initialData={medicine} />}
-              content={<p>Edit Form here</p>}
+              content={<UpdateEvent event={event} />}
               title="Edit Event"
             />
             <ConfirmationBox
               trigger={
                 <Button variant="destructive" size="sm">
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4 text-white" />
                 </Button>
               }
               onConfirm={() => handleDelete(event.id)}
@@ -181,15 +230,21 @@ export default function UserDashboardEventsComponent({
       columnVisibility,
     },
   });
+
+  //  Handle Searching
+  const handleSearchQuery = (query: string, value: string | number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(query, value.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  };
   return (
     <div className="w-full">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">My Events</h1>
         <CustomModal
-          //   content={<CreateMedicineForm />}
-          content={<p>Create medicine form here</p>}
+          content={<CreateEvent />}
           trigger={
-            <Button className="h-8" effect={"shine"}>
+            <Button className="h-8 text-white" effect={"shine"}>
               Create Event
             </Button>
           }
@@ -197,7 +252,13 @@ export default function UserDashboardEventsComponent({
         />
       </div>
       <div className="flex items-center py-4">
-        <Input placeholder="Filter by title..." className="max-w-sm" />
+        <Input
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            handleSearchQuery("searchTerm", e.target.value)
+          }
+          placeholder="Search by title..."
+          className="max-w-sm"
+        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -271,6 +332,9 @@ export default function UserDashboardEventsComponent({
           </Table>
         </div>
       )}
+      <div className="mt-3">
+        <Pagination totalPages={totalPage} />
+      </div>
     </div>
   );
 }
