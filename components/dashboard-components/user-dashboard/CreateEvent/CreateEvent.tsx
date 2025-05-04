@@ -1,26 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import DatePicker from "react-datepicker";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { CalendarIcon, LoaderCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { loginValidationSchema } from "./LoginValidationSchema";
 import { toast } from "sonner";
-import { useRouter, useSearchParams } from "next/navigation";
-import { userLogin } from "@/services/AuthServices.ts";
 import { useUser } from "@/context/UserContext";
-import { PasswordInput } from "@/components/ui/password-input";
 import {
   Select,
   SelectContent,
@@ -43,11 +36,8 @@ import uploadImage from "@/utils/imageUploadToCloudinary";
 import { eventCreate } from "@/services/Event";
 
 const CreateEvent = () => {
-  const [date, setDate] = React.useState<Date>();
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const { setIsLoading } = useUser();
-  // const form = useForm();
+  //  Form
   const form = useForm({ resolver: zodResolver(eventCreateValidationSchema) });
   const {
     formState: { isSubmitting },
@@ -55,19 +45,23 @@ const CreateEvent = () => {
 
   //  Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    //  Loading State
     const createEvent = toast.loading("Creating Event...");
-    console.log(data);
 
+    //  Upload Image to Cloudinary
     const imageUrl = await uploadImage(data.image);
     try {
+      // Modify the data before sending it to the server
       const modifiedData = {
         ...data,
         isPublic: data.isPublic === "true" ? true : false,
         fee: Number(data.fee),
         image: imageUrl,
       };
+      //  Create Event
       const res = await eventCreate(modifiedData);
       setIsLoading(true);
+      // Success
       if (res?.success) {
         form.reset();
         toast.success(res?.message, { id: createEvent });
