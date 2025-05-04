@@ -36,6 +36,7 @@ import { useState } from "react";
 import { CustomModal } from "@/components/modules/shared/CustomModal";
 import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
 import Link from "next/link";
+import CreateEvent from "./CreateEvent/CreateEvent";
 
 type EventProps = {
   result: TEvent[];
@@ -133,10 +134,7 @@ export default function UserDashboardEventsComponent({
         return (
           <div className="flex gap-2">
             <Link href={`/dashboard/user/events/${event.id}`}>
-              <Button
-                variant="outline"
-                size="sm"
-              >
+              <Button variant="outline" size="sm">
                 <Eye className="h-4 w-4" />
               </Button>
             </Link>
@@ -187,7 +185,7 @@ export default function UserDashboardEventsComponent({
         <h1 className="text-2xl font-bold">My Events</h1>
         <CustomModal
           //   content={<CreateMedicineForm />}
-          content={<p>Create medicine form here</p>}
+          content={<CreateEvent />}
           trigger={
             <Button className="h-8" effect={"shine"}>
               Create Event
