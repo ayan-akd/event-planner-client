@@ -1,10 +1,13 @@
-import { Button } from "@/components/ui/button";
 import { TEvent } from "@/types/event.type";
 import { timeFormatter } from "@/utils/timeFormater";
 import Image from "next/image";
 import Link from "next/link";
+import EventItemJoinButton from "./EventItemJoinButton";
+import { useUser } from "@/context/UserContext";
 
 const EventItem = ({ event }: { event: TEvent }) => {
+  const { user } = useUser();
+  const currentUserId = user ? user.userId : null;
   return (
     <div className="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-105">
       <div className="relative">
@@ -82,7 +85,7 @@ const EventItem = ({ event }: { event: TEvent }) => {
           <span className="text-lg md:text-xl 2xl:text-2xl font-bold text-gray-800">
             ${event?.fee}
           </span>
-          <Button className="text-white">Join Now</Button>
+          <EventItemJoinButton event={event} currentUserId={currentUserId} />
         </div>
       </div>
     </div>
