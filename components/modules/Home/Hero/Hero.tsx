@@ -26,7 +26,7 @@ const Hero = ({ data }: { data: TEvent }) => {
           </p>
           <div>
             <Link href={`/events/${data?.id}`}>
-              <Button className="cursor-pointer dark:text-white">
+              <Button effect={"shine"} className="cursor-pointer dark:text-white">
                 Join Event
               </Button>
             </Link>

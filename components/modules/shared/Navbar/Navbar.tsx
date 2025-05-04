@@ -110,7 +110,7 @@ export default function Navbar() {
                     </Link>
                   ) : (
                     <Link href="/login">
-                      <Button className="dark:text-white">Login</Button>
+                      <Button effect={"shine"} className="dark:text-white">Login</Button>
                     </Link>
                   )}
                 </DropdownMenuItem>
@@ -146,7 +146,7 @@ export default function Navbar() {
               </DropdownMenu>
             ) : (
               <Link href="/login">
-                <Button className="dark:text-white">Login</Button>
+                <Button effect={"shine"} className="dark:text-white">Login</Button>
               </Link>
             )}
             <ToggleButton />
