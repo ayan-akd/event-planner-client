@@ -244,7 +244,7 @@ export default function UserDashboardEventsComponent({
         <CustomModal
           content={<CreateEvent />}
           trigger={
-            <Button className="h-8" effect={"shine"}>
+            <Button className="h-8 text-white" effect={"shine"}>
               Create Event
             </Button>
           }
