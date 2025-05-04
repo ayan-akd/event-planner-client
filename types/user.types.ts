@@ -1,6 +1,7 @@
 export type TLoggedInUser = {
   userId: string;
   email: string;
+  profileImage?: string;
   role: string;
   iat: number;
   exp: number;
