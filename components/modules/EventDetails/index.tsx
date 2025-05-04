@@ -1,13 +1,16 @@
-import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { EventDetailsTabs } from "./EventDetailsTab/EventDetailsTab";
 import { getSingleEvents } from "@/services/Event";
 import { timeFormatter } from "@/utils/timeFormater";
+import { getCurrentUser } from "@/services/AuthServices.ts";
+import JoinEventButton from "./EventDetailsTab/JoinEventButton";
 
 const EventDetails = async ({ eventId }: { eventId: string }) => {
   const { data } = await getSingleEvents(eventId);
+  const user = await getCurrentUser();
+  const currentUserId = user ? user.userId : null;
   return (
     <>
       <div className="border rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-4 p-4 mt-10 md:mt-24">
@@ -39,17 +42,19 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
               </p>
             </div>
             <div className="flex items-center gap-1">
-              <dt className="text-gray-700 ">
-                <span className="sr-only"> Event Start </span>
+              <dl className="flex items-center gap-1">
+                <dt className="text-gray-700">
+                  <span className="sr-only"> Event Start </span>
 
-                <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
-                  Event Start
-                </span>
-              </dt>
+                  <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
+                    Event Start
+                  </span>
+                </dt>
 
-              <dd className="text-xs text-gray-700">
-                {timeFormatter(data?.startDate)}
-              </dd>
+                <dd className="text-xs text-gray-700">
+                  {timeFormatter(data?.startDate)}
+                </dd>
+              </dl>
             </div>
           </div>
           <div className="flex items-center gap-4 mt-3 mb-5 text-gray-500 text-xs">
@@ -66,7 +71,7 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
           </div>
           <hr />
 
-          <Button className="w-full my-3">Join Now</Button>
+          <JoinEventButton event={data} currentUserId={currentUserId} />
         </div>
       </div>
       <div className="p-4">

@@ -67,7 +67,7 @@ export default function UserDashboardEventsComponent({
       } else {
         toast.error(res.message, { id: eventDeleting });
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!", { id: eventDeleting });
     }
   };
@@ -119,7 +119,7 @@ export default function UserDashboardEventsComponent({
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Status <ArrowUpDown />
+          Public/Private <ArrowUpDown />
         </Button>
       ),
       cell: ({ row }) => (
@@ -133,6 +133,42 @@ export default function UserDashboardEventsComponent({
           {row.getValue("isPublic") ? "Public" : "Private"}
         </Badge>
       ),
+    },
+    {
+      accessorKey: "status",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status <ArrowUpDown />
+        </Button>
+      ),
+      cell: ({ row }) => {
+        const startDate = new Date(row.original.startDate);
+        const endDate = new Date(row.original.endDate);
+        const currentDate = new Date();
+        
+        let status = "";
+        let badgeColor = "";
+        
+        if (currentDate < startDate) {
+          status = "Upcoming";
+          badgeColor = "bg-blue-400 hover:bg-blue-500";
+        } else if (currentDate >= startDate && currentDate <= endDate) {
+          status = "Ongoing";
+          badgeColor = "bg-green-400 hover:bg-green-500";
+        } else {
+          status = "Completed";
+          badgeColor = "bg-gray-400 hover:bg-gray-500";
+        }
+        
+        return (
+          <Badge className={badgeColor}>
+            {status}
+          </Badge>
+        );
+      },
     },
     {
       accessorKey: "organizer",
@@ -165,7 +201,7 @@ export default function UserDashboardEventsComponent({
             <ConfirmationBox
               trigger={
                 <Button variant="destructive" size="sm">
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4 text-white" />
                 </Button>
               }
               onConfirm={() => handleDelete(event.id)}
@@ -197,7 +233,6 @@ export default function UserDashboardEventsComponent({
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">My Events</h1>
         <CustomModal
-          //   content={<CreateMedicineForm />}
           content={<CreateEvent />}
           trigger={
             <Button className="h-8" effect={"shine"}>

@@ -7,7 +7,7 @@ export type TLoggedInUser = {
 };
 
 // User Interface
-export interface IOrganizer {
+export interface IUser {
   id: string;
   name: string;
   username: string;
