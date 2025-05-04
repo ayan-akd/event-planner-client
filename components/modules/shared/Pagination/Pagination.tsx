@@ -1,7 +1,30 @@
-const Pagination = () => {
+"use client";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+
+const Pagination = ({ totalPages }: { totalPages: number }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Handle Previous
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      router.push(`${pathname}?page=${currentPage - 1}`);
+    }
+  };
+
+  // Handle Next
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      router.push(`${pathname}?page=${currentPage + 1}`);
+    }
+  };
   return (
     <ul className="flex justify-center gap-1 text-gray-900">
-      <li>
+      <li onClick={handlePrevious} className="cursor-pointer">
         <a
           href="#"
           className="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180 dark:text-white"
@@ -22,16 +45,30 @@ const Pagination = () => {
         </a>
       </li>
 
-      <li>
-        <a
-          href="#"
-          className="block size-8 rounded border bg-primary text-white border-gray-200 text-center text-sm/8 font-medium transition-colors "
+      {[...Array(totalPages)]?.map((_, idx) => (
+        <li
+          className="cursor-pointer"
+          key={idx}
+          onClick={() => {
+            setCurrentPage(idx + 1);
+            router.push(`${pathname}?page=${idx + 1}`, {
+              scroll: false,
+            });
+          }}
         >
-          1
-        </a>
-      </li>
+          <span
+            className={`block size-8 rounded border ${
+              currentPage === idx + 1
+                ? "bg-primary text-white"
+                : "bg-gray-50 text-black"
+            }  border-gray-200 text-center text-sm/8 font-medium transition-colors`}
+          >
+            {idx + 1}
+          </span>
+        </li>
+      ))}
 
-      <li>
+      <li onClick={handleNext} className="cursor-pointer">
         <a
           href="#"
           className="grid size-8 place-content-center rounded border border-gray-200 transition-colors hover:bg-gray-50 rtl:rotate-180 dark:text-white"
