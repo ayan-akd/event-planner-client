@@ -21,7 +21,7 @@ const UpcomingEventsItem = ({ event }: { event: TEvent }) => {
         />
         <div className="hover:bg-transparent transition duration-300 absolute inset-0 bg-gray-900 opacity-25" />
         <div className="absolute bottom-0 left-0 bg-primary px-4 py-2 text-white text-sm hover:bg-white hover:text-primary transition duration-500 ease-in-out flex gap-1 items-center">
-          {event?.fee < 0 ? (
+          {event?.fee == 0 ? (
             <>
               <BadgeDollarSign size={18} /> <span>Free</span>
             </>
