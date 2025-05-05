@@ -14,8 +14,12 @@ export interface IUser {
   username: string;
   email: string;
   password: string;
-  image?: string;
-  role?: string;
+  profileImage?: string;
+  role?: TUserRole;
+  status?: TUserStatus;
   createdAt?: string;
   updatedAt?: string;
 }
+
+export type TUserRole = "USER" | "ADMIN";
+export type TUserStatus = "ACTIVE" | "BLOCKED";
