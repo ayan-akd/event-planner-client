@@ -177,7 +177,7 @@ export default function AdminEvents({ events }: { events: EventProps }) {
         const event = row.original;
         return (
           <div className="flex gap-2">
-            <Link href={`/dashboard/user/events/${event.id}`}>
+            <Link href={`/dashboard/admin/events/${event.id}`}>
               <Button variant="outline" size="sm">
                 <Eye className="h-4 w-4" />
               </Button>
