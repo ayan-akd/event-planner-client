@@ -63,7 +63,10 @@ export const getLoggedInUserEvent = async (
 };
 
 // Get All Events
-export const getAllEvents = async (searchTerm: string, page?: string) => {
+export const getAllEvents = async (
+  searchTerm: string | null,
+  page?: string
+) => {
   const token = await getValidToken();
   const params = new URLSearchParams();
   const pageNumber = page || 1;
