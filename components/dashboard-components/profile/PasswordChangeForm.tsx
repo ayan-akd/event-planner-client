@@ -201,7 +201,7 @@ export default function PasswordChangeForm() {
             />
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={isLoading}>
+              <Button className="text-white" type="submit" disabled={isLoading}>
                 {isLoading ? "Changing..." : "Change Password"}
               </Button>
             </div>

@@ -1,6 +1,6 @@
 "use server";
 
-import { TUserStatus } from "@/types/user.types";
+import { TUserRole, TUserStatus } from "@/types/user.types";
 import { getValidToken } from "@/utils/verifyToken";
 import { revalidateTag } from "next/cache";
 
@@ -41,6 +41,27 @@ export const getSingleUser = async (id: string) => {
     );
     const result = await res.json();
     return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+export const changeRole = async (id: string, data: { role: TUserRole }) => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    await revalidateTag("USERS");
+    return res.json();
   } catch (error: any) {
     return Error(error);
   }
