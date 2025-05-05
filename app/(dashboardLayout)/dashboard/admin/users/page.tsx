@@ -7,6 +7,9 @@ export default async function AdminUsersPage({searchParams}: {searchParams: Prom
   const {data} = await getAllUsers(searchTerm, page, limit);
   return (
     <ContentLayout title="USERS">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">All Users</h1>
+      </div>
       <AdminDashboardUsersComponent users = {data} />
     </ContentLayout>
   );

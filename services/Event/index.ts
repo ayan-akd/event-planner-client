@@ -28,7 +28,7 @@ export const eventCreate = async (data: TEvent) => {
 
 // Get Logged In User Event
 export const getLoggedInUserEvent = async (
-  searchTerm: string,
+  searchTerm?: string,
   page?: string
 ) => {
   const token = await getValidToken();
