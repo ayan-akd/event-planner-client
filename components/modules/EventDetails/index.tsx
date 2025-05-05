@@ -11,6 +11,10 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
   const { data } = await getSingleEvents(eventId);
   const user = await getCurrentUser();
   const currentUserId = user ? user.userId : null;
+
+      // for payment: userId and eventId needed
+      const {userId} = user;
+
   return (
     <>
       <div className="border rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-4 p-4 mt-10 md:mt-24">
@@ -71,7 +75,7 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
           </div>
           <hr />
 
-          <JoinEventButton event={data} currentUserId={currentUserId} />
+          <JoinEventButton event={data} currentUserId={currentUserId} userId={userId} />
         </div>
       </div>
       <div className="p-4">
