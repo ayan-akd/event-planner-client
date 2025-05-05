@@ -252,13 +252,24 @@ export default function UserDashboardEventsComponent({
         />
       </div>
       <div className="flex items-center py-4">
-        <Input
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            handleSearchQuery("searchTerm", e.target.value)
-          }
-          placeholder="Search by title..."
-          className="max-w-sm"
-        />
+        <div className="flex gap-2">
+          <Input
+            type="search"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              handleSearchQuery("searchTerm", e.target.value)
+            }
+            placeholder="Search by title..."
+            className="max-w-sm"
+          />
+          <Button
+            size="sm"
+            className="dark:text-white"
+            onClick={() => router.push(pathname, { scroll: false })}
+          >
+            Clear Filters
+          </Button>
+        </div>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

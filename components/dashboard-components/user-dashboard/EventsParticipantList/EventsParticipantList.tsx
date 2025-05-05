@@ -52,26 +52,6 @@ export default function EventsParticipantList({
 
   const columns: ColumnDef<TParticipantWithUser>[] = [
     {
-      accessorKey: "title",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Title <ArrowUpDown />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        console.log("r", row.original);
-        return (
-          <Link href={`/events/${participants.id}`}>
-            {/* {row.getValue("title")} */}
-            {participants?.title?.slice(0, 20)}...
-          </Link>
-        );
-      },
-    },
-    {
       accessorKey: "user",
       header: ({ column }) => (
         <Button
@@ -135,7 +115,7 @@ export default function EventsParticipantList({
 
     {
       id: "actions",
-      header: "Take Actions",
+      header: "Take Action",
       cell: ({ row }) => {
         return (
           <Select>
@@ -173,7 +153,9 @@ export default function EventsParticipantList({
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
-        <h1 className="text-2xl font-bold">Participant List</h1>
+        <h1 className="text-2xl font-bold">
+          Participant List For {participants?.title}
+        </h1>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
