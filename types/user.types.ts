@@ -21,3 +21,6 @@ export interface IUser {
   updatedAt: string;
   isDeleted: boolean;
 }
+
+export type TUserRole = "USER" | "ADMIN";
+export type TUserStatus = "ACTIVE" | "BLOCKED";
