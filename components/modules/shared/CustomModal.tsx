@@ -9,7 +9,7 @@ import {
   } from "@/components/ui/dialog"
   import { ReactNode } from "react";
   type TProjectModalProps = {
-      title: string;
+      title?: string;
       trigger: ReactNode;
       content: ReactNode;
     };
