@@ -38,7 +38,7 @@ export default function UpdateUserRole({ user, onSuccess }: UpdateUserRoleProps)
       } else {
         toast.error("Failed to update role", { id: updatingRole });
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!", { id: updatingRole });
     } finally {
       setIsLoading(false);
