@@ -1,4 +1,6 @@
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import EventsParticipantList from "@/components/dashboard-components/user-dashboard/EventsParticipantList/EventsParticipantList";
+import { getSingleEvents } from "@/services/Event";
 
 export default async function EventsParticipantPage({
   params,
@@ -6,10 +8,11 @@ export default async function EventsParticipantPage({
   params: Promise<{ eventId: string }>;
 }) {
   const { eventId } = await params;
+  const { data: eventData } = await getSingleEvents(eventId);
   return (
     <ContentLayout title="PARTICIPANTS">
       <div>
-        <h1>This is the EventsParticipantPage for {eventId}</h1>
+        <EventsParticipantList participants={eventData} />
       </div>
     </ContentLayout>
   );
