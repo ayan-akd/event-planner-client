@@ -112,7 +112,7 @@ export default function ProfileUpdateForm({ user }: { user: IUser }) {
             />
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={isLoading}>
+              <Button className="text-white" type="submit" disabled={isLoading}>
                 {isLoading ? "Updating..." : "Update Profile"}
               </Button>
             </div>

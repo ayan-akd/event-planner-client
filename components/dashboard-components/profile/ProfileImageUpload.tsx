@@ -136,8 +136,7 @@ export default function ProfileImageUpload({
         />
 
         <div className="flex gap-4 mt-4">
-          <Button
-            variant="outline"
+          <Button className="dark:text-white"
             onClick={() => fileInputRef.current?.click()}
           >
             Select Image
