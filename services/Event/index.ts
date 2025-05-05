@@ -1,11 +1,12 @@
 "use server";
 
 import { TEvent } from "@/types/event.type";
+import { getValidToken } from "@/utils/verifyToken";
 import { revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
 
 // Create Event
-export const eventCreate = async (data: any) => {
+export const eventCreate = async (data: TEvent) => {
+  const token = await getValidToken();
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/create`,
@@ -13,8 +14,7 @@ export const eventCreate = async (data: any) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: (await cookies()).get("event_planner_token")
-            ?.value as string,
+          Authorization: token,
         },
         body: JSON.stringify(data),
       }
@@ -31,6 +31,7 @@ export const getLoggedInUserEvent = async (
   searchTerm: string,
   page?: string
 ) => {
+  const token = await getValidToken();
   const params = new URLSearchParams();
   const pageNumber = page || 1;
   // searchTerm
@@ -48,8 +49,7 @@ export const getLoggedInUserEvent = async (
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: (await cookies()).get("event_planner_token")
-            ?.value as string,
+          Authorization: token,
         },
         next: {
           tags: ["EVENTS"],
@@ -63,17 +63,16 @@ export const getLoggedInUserEvent = async (
 };
 
 // Get All Events
-export const getAllEvents = async (query: {
-  [key: string]: string | string[] | undefined;
-}) => {
+export const getAllEvents = async (searchTerm: string, page?: string) => {
+  const token = await getValidToken();
   const params = new URLSearchParams();
-  if (query?.searchTerm) {
-    params.append("searchTerm", query?.searchTerm?.toString());
+  const pageNumber = page || 1;
+  // searchTerm
+  if (searchTerm) {
+    params.append("searchTerm", searchTerm.toString());
   }
-  if (query?.eventType) {
-    params.append("eventType", query?.eventType?.toString());
-  }
-
+  params.append("page", pageNumber.toString());
+  params.append("limit", "8");
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/events?${params.toString()}`,
@@ -100,7 +99,7 @@ export const getAdminSelectedEvents = async () => {
         method: "GET",
         next: {
           tags: ["ADMIN-EVENTS"],
-        }
+        },
       }
     );
     const result = await res.json();
@@ -125,6 +124,7 @@ export const getSingleEvents = async (id: string) => {
 
 // Delete Logged In User Single Event
 export const deleteLoggedInUserSingleEvent = async (id: string) => {
+  const token = await getValidToken();
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${id}`,
@@ -132,8 +132,28 @@ export const deleteLoggedInUserSingleEvent = async (id: string) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: (await cookies()).get("event_planner_token")
-            ?.value as string,
+          Authorization: token,
+        },
+      }
+    );
+    await revalidateTag("EVENTS");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+// Admin Delete Any  Single Event
+export const adminDeleteAnySingleEvent = async (id: string) => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${id}/admin`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
         },
       }
     );
@@ -149,7 +169,7 @@ export const updateLoggedInUserSingleEvent = async (
   id: string,
   payload: Partial<TEvent>
 ) => {
-  console.log("From U API", id);
+  const token = await getValidToken();
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${id}`,
@@ -157,8 +177,7 @@ export const updateLoggedInUserSingleEvent = async (
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Authorization: (await cookies()).get("event_planner_token")
-            ?.value as string,
+          Authorization: token,
         },
         body: JSON.stringify(payload),
       }

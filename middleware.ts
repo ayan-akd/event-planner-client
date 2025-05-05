@@ -1,8 +1,8 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "./services/AuthServices.ts";
+import { TUserRole } from "./types/user.types.js";
 
-type Role = keyof typeof roleBasedPrivateRoutes;
 
 const authRoutes = ["/login"];
 
@@ -33,8 +33,8 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.next();
   }
   
-  if (userInfo?.role && roleBasedPrivateRoutes[userInfo?.role as Role]) {
-    const routes = roleBasedPrivateRoutes[userInfo?.role as Role];
+  if (userInfo?.role && roleBasedPrivateRoutes[userInfo?.role as TUserRole]) {
+    const routes = roleBasedPrivateRoutes[userInfo?.role as TUserRole];
     if (routes.some((route) => pathname.match(route))) {
       return NextResponse.next();
     }
