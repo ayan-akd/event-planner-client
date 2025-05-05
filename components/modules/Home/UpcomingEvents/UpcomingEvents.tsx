@@ -15,7 +15,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import SectionTitle from "../../shared/SectionTitle/SectionTitle";
-const UpcomingEvents = () => {
+import { TEvent } from "@/types/event.type";
+const UpcomingEvents = ({ events }: { events: TEvent[] }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   useEffect(() => {
@@ -45,7 +46,7 @@ const UpcomingEvents = () => {
           className="w-full"
         >
           <CarouselContent>
-            {upcomingEventsData?.map((item: TUpcomingEvent) => (
+            {events?.map((item: TEvent) => (
               <CarouselItem
                 key={item?.id}
                 className="md:basis-1/2 lg:basis-1/3"
@@ -56,10 +57,18 @@ const UpcomingEvents = () => {
           </CarouselContent>
         </Carousel>
         <div className="flex justify-end mt-2 gap-2">
-          <Button className="dark:text-white" size="sm" onClick={() => api?.scrollTo(current - 1)}>
+          <Button
+            className="dark:text-white"
+            size="sm"
+            onClick={() => api?.scrollTo(current - 1)}
+          >
             <ArrowLeft />
           </Button>
-          <Button className="dark:text-white" size="sm" onClick={() => api?.scrollTo(current + 1)}>
+          <Button
+            className="dark:text-white"
+            size="sm"
+            onClick={() => api?.scrollTo(current + 1)}
+          >
             <ArrowRight />
           </Button>
         </div>

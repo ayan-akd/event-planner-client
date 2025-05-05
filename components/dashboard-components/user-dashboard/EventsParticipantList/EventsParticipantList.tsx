@@ -41,6 +41,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { updateParticipantStatus } from "@/services/Participants";
 
 export default function EventsParticipantList({
   participants,
@@ -49,6 +50,24 @@ export default function EventsParticipantList({
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
+  //  Handle Participant Status
+  const handleParticipantStatus = async (
+    participantId: string,
+    status: string
+  ) => {
+    const updating = toast.loading("Updating Participant Status...");
+    try {
+      const res = await updateParticipantStatus({ status }, participantId);
+      if (res.success) {
+        toast.success("Participant Status Updated", { id: updating });
+      } else {
+        toast.error("Something went wrong", { id: updating });
+      }
+    } catch (error: any) {
+      toast.error(error?.message, { id: updating });
+    }
+  };
 
   const columns: ColumnDef<TParticipantWithUser>[] = [
     {
@@ -118,7 +137,11 @@ export default function EventsParticipantList({
       header: "Take Action",
       cell: ({ row }) => {
         return (
-          <Select>
+          <Select
+            onValueChange={(value) =>
+              handleParticipantStatus(row.original.id, value)
+            }
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder={row.original.status} />
             </SelectTrigger>
