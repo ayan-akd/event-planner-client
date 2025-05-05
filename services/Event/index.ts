@@ -5,7 +5,7 @@ import { getValidToken } from "@/utils/verifyToken";
 import { revalidateTag } from "next/cache";
 
 // Create Event
-export const eventCreate = async (data: TEvent) => {
+export const eventCreate = async (data: Partial<TEvent>) => {
   const token = await getValidToken();
   try {
     const res = await fetch(
