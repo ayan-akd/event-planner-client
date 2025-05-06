@@ -6,6 +6,7 @@ import { getSingleEvents } from "@/services/Event";
 import { timeFormatter } from "@/utils/timeFormater";
 import { getCurrentUser } from "@/services/AuthServices.ts";
 import JoinEventButton from "./EventDetailsTab/JoinEventButton";
+import getEventStatus from "@/utils/getEventStatus";
 
 const EventDetails = async ({ eventId }: { eventId: string }) => {
   const { data } = await getSingleEvents(eventId);
@@ -14,7 +15,7 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
   return (
     <>
       <div className="border rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-4 p-4 mt-10 md:mt-24">
-        <div>
+        <div className="relative">
           <Image
             src={data?.image}
             alt="name"
@@ -22,6 +23,9 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
             height={500}
             className="rounded-md w-full object-cover h-80"
           />
+          <div className="absolute top-0 left-0 bg-primary text-white px-2 py-1 m-2 rounded-md text-sm font-semibold">
+            {getEventStatus(data)}
+          </div>
         </div>
         <div className="bg-white rounded-md p-4">
           <h2 className="font-bold text-xl mb-4">{data?.title}</h2>

@@ -53,7 +53,9 @@ const UpcomingEventsItem = ({ event }: { event: TEvent }) => {
         </div>
 
         <div className="mt-4">
-          <Button className="dark:text-white">Join Now</Button>
+          <Link href={`/events/${event?.id}`} className="dark:text-white">
+            <Button>Join Now</Button>
+          </Link>
         </div>
       </div>
     </div>
