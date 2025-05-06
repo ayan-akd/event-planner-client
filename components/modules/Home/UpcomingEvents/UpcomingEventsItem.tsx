@@ -44,7 +44,7 @@ const UpcomingEventsItem = ({ event }: { event: TEvent }) => {
         <div>
           <Link
             href={`/events/${event.id}`}
-            className="font-semibold text-lg inline-block hover:text-primary transition duration-500 ease-in-out"
+            className="font-semibold text-lg inline-block dark:text-black hover:text-primary transition duration-500 ease-in-out"
           >
             {event.title}
           </Link>

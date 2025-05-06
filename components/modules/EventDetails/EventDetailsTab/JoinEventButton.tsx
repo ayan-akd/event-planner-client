@@ -86,7 +86,7 @@ const JoinEventButton = ({ event, currentUserId, userId }: JoinEventButtonProps)
           }
           trigger={
             <Button
-              className="w-full my-3"
+              className="w-full my-3 dark:text-white"
               onClick={handleJoinEvent}
               disabled={isButtonDisabled || isLoading}
             > 

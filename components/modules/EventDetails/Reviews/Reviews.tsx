@@ -21,7 +21,7 @@ const Reviews = async ({ eventId }: { eventId: string }) => {
         </>
       ) : (
         <div className="text-center p-4">
-          <p>No Review Found</p>
+          <p className="dark:text-white">No Review Found</p>
         </div>
       )}
     </div>

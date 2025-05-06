@@ -25,6 +25,7 @@ const EventItemJoinButton = ({ event, currentUserId }: JoinEventButtonProps) => 
   const isOrganizer = currentUserId && event.organizer.id === currentUserId;
 
   const handleJoinEvent = async () => {
+    router.push(`/events/${event.id}`);
     // If user is not logged in, redirect to login page
     if (!currentUserId) {
       router.push('/login');

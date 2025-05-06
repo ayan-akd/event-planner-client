@@ -12,8 +12,8 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
   const user = await getCurrentUser();
   const currentUserId = user ? user.userId : null;
 
-      // for payment: userId and eventId needed
-      const {userId} = user;
+  // for payment: userId and eventId needed
+  const { userId } = user;
 
   return (
     <>
@@ -28,13 +28,13 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
           />
         </div>
         <div className="bg-white rounded-md p-4">
-          <h2 className="font-bold text-xl mb-4">{data?.title}</h2>
+          <h2 className="font-bold text-xl mb-4 dark:text-black">{data?.title}</h2>
           <p className="text-justify text-gray-500 font-light text-sm">
             {data?.description?.slice(0, 400)}
           </p>
 
           <div className="mt-5 font-bold">
-            <h3>${data?.fee}</h3>
+            <h3 className="dark:text-black">${data?.fee}</h3>
           </div>
           <div className="flex items-center gap-2 md:gap-8">
             <div>
@@ -42,7 +42,7 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
                 <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
                   Organized By
                 </span>
-                <span className="text-sm"> {data?.organizer.name}</span>
+                <span className="text-sm dark:text-black"> {data?.organizer.name}</span>
               </p>
             </div>
             <div className="flex items-center gap-1">
@@ -75,7 +75,11 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
           </div>
           <hr />
 
-          <JoinEventButton event={data} currentUserId={currentUserId} userId={userId} />
+          <JoinEventButton
+            event={data}
+            currentUserId={currentUserId}
+            userId={userId}
+          />
         </div>
       </div>
       <div className="p-4">
