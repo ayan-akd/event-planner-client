@@ -19,7 +19,7 @@ export function EventDetailsTabs({ event }: { event: TEvent }) {
         </TabsContent>
         {/* Two Tabe */}
         <TabsContent value="reviews">
-          <Reviews />
+          <Reviews eventId={event?.id} />
         </TabsContent>
       </Tabs>
     </div>
