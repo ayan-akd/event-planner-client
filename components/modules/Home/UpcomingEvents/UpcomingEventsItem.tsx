@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { monthNameList } from "@/constants";
 import { TEvent } from "@/types/event.type";
@@ -51,10 +53,16 @@ const UpcomingEventsItem = ({ event }: { event: TEvent }) => {
             {event.description}
           </p>
         </div>
-
-        <div className="mt-4">
-          <Button className="dark:text-white">Join Now</Button>
-        </div>
+      <div className="px-6 py-4 flex flex-row items-center">
+        <span className="py-1 text-sm font-regular text-gray-900 mr-1 flex flex-row items-center">
+          <Button className="dark:text-white">
+            <Link 
+              href={`/events/${event.id}`}
+              className="dark:text-white">
+                Join Now
+            </Link>
+          </Button>
+        </span>
       </div>
     </div>
   );

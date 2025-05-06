@@ -3,14 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { TEvent } from "@/types/event.type";
 import { useState } from "react";
+import { CustomModal } from "../../shared/CustomModal";
+import CreatePayment from "../../Payment/Create-Payment";
 
 interface JoinEventButtonProps {
   event: TEvent;
   currentUserId: string | null;
+  userId: string;
 }
 
-const JoinEventButton = ({ event, currentUserId }: JoinEventButtonProps) => {
-  console.log(currentUserId);
+const JoinEventButton = ({ event, currentUserId, userId }: JoinEventButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Check if user is already a participant
@@ -67,14 +69,32 @@ const JoinEventButton = ({ event, currentUserId }: JoinEventButtonProps) => {
   // Determine if button should be disabled
   const isButtonDisabled = !currentUserId || isParticipant || isOrganizer;
 
+
+  
+  // for payment: userId and eventId needed
+    const paymentData = {
+      userId,
+      eventId: event.id,
+    };
+
   return (
-    <Button
-      className="w-full my-3"
-      onClick={handleJoinEvent}
-      disabled={isButtonDisabled || isLoading}
-    >
-      {isLoading ? "Processing..." : getButtonText()}
-    </Button>
+
+    <CustomModal
+          content={
+          // <CreateEvent />
+          <CreatePayment paymentData={paymentData} />
+          }
+          trigger={
+            <Button
+              className="w-full my-3"
+              onClick={handleJoinEvent}
+              disabled={isButtonDisabled || isLoading}
+            > 
+              {isLoading ? "Processing..." : getButtonText()}
+            </Button>
+          }
+          title="You are ready to join the event!"
+      />
   );
 };
 
