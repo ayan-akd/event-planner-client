@@ -21,7 +21,7 @@ const ReviewItem = ({ review }: { review: TReview }) => {
             />
           </div>
           <div>
-            <h4 className="font-bold">{review?.user.name}</h4>
+            <h4 className="font-bold dark:text-white">{review?.user.name}</h4>
             <span className="text-xs text-gray-400">
               {getTimeDifference(review?.createdAt)}
             </span>
@@ -38,7 +38,7 @@ const ReviewItem = ({ review }: { review: TReview }) => {
           <span className="text-xl font-bold">{review?.rating}</span>
         </div>
       </div>
-      <div className="p-4 space-y-2 text-sm">{review?.comment}</div>
+      <div className="p-4 space-y-2 text-sm dark:text-white">{review?.comment}</div>
     </div>
   );
 };

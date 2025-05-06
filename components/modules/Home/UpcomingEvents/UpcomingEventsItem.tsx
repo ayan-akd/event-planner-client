@@ -1,7 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { monthNameList } from "@/constants";
 import { TEvent } from "@/types/event.type";
-import { TUpcomingEvent } from "@/types/homepage.type";
 import { BadgeDollarSign, Crown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,7 +44,7 @@ const UpcomingEventsItem = ({ event }: { event: TEvent }) => {
         <div>
           <Link
             href={`/events/${event.id}`}
-            className="font-semibold text-lg inline-block hover:text-primary transition duration-500 ease-in-out"
+            className="font-semibold text-lg inline-block dark:text-black hover:text-primary transition duration-500 ease-in-out"
           >
             {event.title}
           </Link>
@@ -51,11 +52,14 @@ const UpcomingEventsItem = ({ event }: { event: TEvent }) => {
             {event.description}
           </p>
         </div>
-
-        <div className="mt-4">
-          <Link href={`/events/${event?.id}`} className="dark:text-white">
-            <Button>Join Now</Button>
-          </Link>
+        <div className="px-6 py-4 flex flex-row items-center">
+          <span className="py-1 text-sm font-regular text-gray-900 mr-1 flex flex-row items-center">
+            <Button className="dark:text-white">
+              <Link href={`/events/${event.id}`} className="dark:text-white">
+                Join Now
+              </Link>
+            </Button>
+          </span>
         </div>
       </div>
     </div>
