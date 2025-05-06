@@ -8,7 +8,6 @@ import getEventStatus from "@/utils/getEventStatus";
 
 const EventItem = ({ event }: { event: TEvent }) => {
   const { user } = useUser();
-  console.log(event);
   const currentUserId = user ? user.userId : null;
   return (
     <div className="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-105">
