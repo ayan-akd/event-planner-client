@@ -33,7 +33,7 @@ const EventItem = ({ event }: { event: TEvent }) => {
               <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
                 Organized By
               </span>
-              <span className="text-sm"> {event?.organizer.name}</span>
+              <span className="text-sm dark:text-black"> {event?.organizer.name}</span>
             </p>
           </div>
           <div className="flex items-center">

@@ -79,6 +79,7 @@ const EventItemJoinButton = ({ event, currentUserId }: JoinEventButtonProps) => 
     <Button
       onClick={handleJoinEvent}
       disabled={isButtonDisabled || isLoading}
+      className="dark:text-white"
     >
       {isLoading ? "Processing..." : getButtonText()}
     </Button>
