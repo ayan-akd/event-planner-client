@@ -1,5 +1,4 @@
 "use client";
-import { TEvent } from "@/types/event.type";
 import {
   ColumnDef,
   SortingState,
@@ -11,7 +10,7 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, Eye } from "lucide-react";
+import { ArrowUpDown, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -27,17 +26,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { Trash2, Edit } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { CustomModal } from "@/components/modules/shared/CustomModal";
 import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
-import Link from "next/link";
-import { deleteLoggedInUserSingleEvent } from "@/services/Event";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import UpdateEvent from "../UpdateEvent/UpdateEvent";
 import { TReview } from "@/types/review.type";
 import UpdateReview from "./UpdateReview/UpdateReview";
 import { deleteReview } from "@/services/Review";
@@ -49,9 +43,7 @@ export default function UserDashboardReviewComponent({
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+
   // Logged In User Single Event Delete
   const handleDelete = async (id: string) => {
     const reviewDeleting = toast.loading("Review Deleting...");
@@ -170,12 +162,6 @@ export default function UserDashboardReviewComponent({
     },
   });
 
-  //  Handle Searching
-  const handleSearchQuery = (query: string, value: string | number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(query, value.toString());
-    router.push(`${pathname}?${params.toString()}`);
-  };
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
