@@ -29,16 +29,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, Edit } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
-import { CustomModal } from "@/components/modules/shared/CustomModal";
 import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
 import Link from "next/link";
-import CreateEvent from "./CreateEvent/CreateEvent";
-import { deleteLoggedInUserSingleEvent } from "@/services/Event";
-import UpdateEvent from "./UpdateEvent/UpdateEvent";
+import { adminDeleteAnySingleEvent } from "@/services/Event";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "@/components/modules/shared/Pagination/Pagination";
 
@@ -52,22 +49,18 @@ type EventProps = {
   };
 };
 
-export default function UserDashboardEventsComponent({
-  events,
-}: {
-  events: EventProps;
-}) {
+export default function AdminEvents({ events }: { events: EventProps }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const totalPage = events?.meta.totalPage;
-  // Logged In User Single Event Delete
+  //  Single Event Delete
   const handleDelete = async (id: string) => {
     const eventDeleting = toast.loading("Event Deleting...");
     try {
-      const res = await deleteLoggedInUserSingleEvent(id);
+      const res = await adminDeleteAnySingleEvent(id);
       if (res.success) {
         toast.success(res.message, { id: eventDeleting });
       } else {
@@ -184,22 +177,12 @@ export default function UserDashboardEventsComponent({
         const event = row.original;
         return (
           <div className="flex gap-2">
-            <Link href={`/dashboard/user/events/${event.id}`}>
+            <Link href={`/dashboard/admin/events/${event.id}`}>
               <Button variant="outline" size="sm">
                 <Eye className="h-4 w-4" />
               </Button>
             </Link>
-            <CustomModal
-              trigger={
-                <Button variant="outline" size="sm">
-                  <Edit className="h-4 w-4" />
-                </Button>
-              }
-              //enter edit event from here
-              //   content={<EditMedicineForm initialData={medicine} />}
-              content={<UpdateEvent event={event} />}
-              title="Edit Event"
-            />
+
             <ConfirmationBox
               trigger={
                 <Button variant="destructive" size="sm">
@@ -240,16 +223,7 @@ export default function UserDashboardEventsComponent({
   return (
     <div className="w-full">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">My Events</h1>
-        <CustomModal
-          content={<CreateEvent />}
-          trigger={
-            <Button className="h-8 text-white" effect={"shine"}>
-              Create Event
-            </Button>
-          }
-          title="Create Event"
-        />
+        <h1 className="text-2xl font-bold">All Events</h1>
       </div>
       <div className="flex items-center py-4">
         <div className="flex gap-2">

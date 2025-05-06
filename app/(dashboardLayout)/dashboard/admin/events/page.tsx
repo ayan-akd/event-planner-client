@@ -1,10 +1,18 @@
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import AdminEvents from "@/components/dashboard-components/admin-dashboard/AdminEvents/AdminEvents";
+import { getAllEvents } from "@/services/Event";
 
-export default function AdminEventsPage() {
+export default async function AdminEventsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ searchTerm: string; page: string }>;
+}) {
+  const { searchTerm, page } = await searchParams;
+  const { data } = await getAllEvents(searchTerm, page);
   return (
     <ContentLayout title="EVENTS">
       <div>
-        <h1>This is the AdminEventsPage component</h1>
+        <AdminEvents events={data} />
       </div>
     </ContentLayout>
   );

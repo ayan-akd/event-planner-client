@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import EventItemJoinButton from "./EventItemJoinButton";
 import { useUser } from "@/context/UserContext";
+import getEventStatus from "@/utils/getEventStatus";
 
 const EventItem = ({ event }: { event: TEvent }) => {
   const { user } = useUser();
@@ -18,6 +19,9 @@ const EventItem = ({ event }: { event: TEvent }) => {
           src={event?.image}
           alt="Nature scene"
         />
+        <div className="absolute top-0 left-0 bg-primary text-white px-2 py-1 m-2 rounded-md text-sm font-semibold">
+          {getEventStatus(event)}
+        </div>
         <div className="absolute top-0 right-0 bg-primary text-white px-2 py-1 m-2 rounded-md text-sm font-semibold">
           {event?.fee ? "Pro" : "Free"}
         </div>

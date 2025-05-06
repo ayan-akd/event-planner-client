@@ -1,5 +1,6 @@
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import EventsParticipantList from "@/components/dashboard-components/user-dashboard/EventsParticipantList/EventsParticipantList";
+import EventsParticipantList from "@/components/dashboard-components/admin-dashboard/AdminEvents/EventsParticipantList/EventsParticipantList";
+
 import { getSingleEvents } from "@/services/Event";
 
 export default async function EventsParticipantPage({

@@ -1,11 +1,12 @@
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import UserDashboardInvitationComponent from "@/components/dashboard-components/user-dashboard/UserDashboardInvitationComponent";
+import { getMyCreatedInvites } from "@/services/Invitations";
 
-export default function InvitationsPage() {
+export default async function InvitationsPage() {
+    const  {data}  = await getMyCreatedInvites();
     return (
        <ContentLayout title="INVITATIONS">
-         <div>
-            <h1>This is the InvitationsPage component</h1>
-        </div>
+         <UserDashboardInvitationComponent invitations={data} />
        </ContentLayout>
     );
 }
