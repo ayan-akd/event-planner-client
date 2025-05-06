@@ -4,23 +4,22 @@ import Link from "next/link";
 const Footer = () => {
   const date = new Date();
   return (
-    <footer className="mt-12 md:mt-16">
-      <div className="mx-auto max-w-screen-xl px-4 pb-6 pt-16 sm:px-6 lg:px-8 lg:pt-24">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+    <footer className="mt-12 md:mt-16 bg-white dark:bg-black">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           <div>
             <div className="flex justify-center sm:justify-start">
-              <h1 className=" text-lg md:text-2xl font-black flex items-center">
+              <h1 className="text-lg md:text-2xl font-black flex items-center">
                 Evenzo
               </h1>
             </div>
 
-            <p className="mt-6 max-w-md text-center leading-relaxed text-gray-500 sm:max-w-xs sm:text-left">
+            <p className="mt-4 max-w-md text-center leading-relaxed text-gray-500 dark:text-gray-400 sm:max-w-xs sm:text-left">
               We offer a wide range of quality medicines from trusted sources
-              with fast delivery and easy ordering. Get your essential meds and
-              healthcare products hassle-free!
+              with fast delivery and easy ordering.
             </p>
 
-            <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
+            <ul className="mt-6 flex justify-center gap-6 sm:justify-start md:gap-8">
               <li>
                 <a
                   href="#"
@@ -88,134 +87,51 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:col-span-2 md:grid-cols-2">
             <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900 dark:text-gray-500">About Us</p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-400">Quick Links</p>
 
-              <ul className="mt-8 space-y-4 text-sm">
+              <ul className="mt-4 space-y-3 text-sm">
                 <li>
                   <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
+                    className="text-gray-700 dark:text-gray-400 transition hover:text-primary"
+                    href="/about"
                   >
-                    Company History
+                    About Us
                   </Link>
                 </li>
 
                 <li>
                   <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
+                    className="text-gray-700 dark:text-gray-400 transition hover:text-primary"
+                    href="/contact"
                   >
-                    Meet the Team
+                    Contact Us
                   </Link>
                 </li>
 
                 <li>
                   <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
+                    className="text-gray-700 dark:text-gray-400 transition hover:text-primary"
+                    href="/privacy"
                   >
-                    Employee Handbook
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
-                  >
-                    Careers
+                    Privacy Policy
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900 dark:text-gray-500">Our Services</p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-400">Contact Us</p>
 
-              <ul className="mt-8 space-y-4 text-sm">
+              <ul className="mt-4 space-y-3 text-sm">
                 <li>
-                  <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
-                  >
-                    Home Delivery
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
-                  >
-                    Store Pickup
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
-                  >
-                    Express Delivery
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900 dark:text-gray-500">Helpful Links</p>
-
-              <ul className="mt-8 space-y-4 text-sm">
-                <li>
-                  <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
-                  >
-                    FAQs
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="text-gray-700 dark:text-gray-500 transition hover:text-gray-700/75"
-                    href="/"
-                  >
-                    Support
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="group flex gap-1.5  justify-center md:justify-start"
-                    href="/"
-                  >
-                    <span className="text-gray-700 dark:text-gray-500 transition group-hover:text-gray-700/75">
-                      Live Chat
-                    </span>
-
-                    <span className="relative flex size-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                      <span className="relative inline-flex size-2 rounded-full bg-primary"></span>
-                    </span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900 dark:text-gray-500">Contact Us</p>
-
-              <ul className="mt-8 space-y-4 text-sm">
-                <li>
-                  <Link
-                    className="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
-                    href="/"
+                  <div
+                    className="flex items-center justify-center gap-1.5 sm:justify-start"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="size-5 shrink-0 text-gray-900 dark:text-gray-500"
+                      className="size-5 shrink-0 text-gray-900 dark:text-gray-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -228,18 +144,17 @@ const Footer = () => {
                       />
                     </svg>
 
-                    <span className="flex-1 text-gray-700 dark:text-gray-500">john@doe.com</span>
-                  </Link>
+                    <span className="flex-1 text-gray-700 dark:text-gray-400">info@evenzo.com</span>
+                  </div>
                 </li>
 
                 <li>
-                  <Link
-                    className="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
-                    href="/"
+                  <div
+                    className="flex items-center justify-center gap-1.5 sm:justify-start"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="size-5 shrink-0 text-gray-900 dark:text-gray-500"
+                      className="size-5 shrink-0 text-gray-900 dark:text-gray-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -252,14 +167,14 @@ const Footer = () => {
                       />
                     </svg>
 
-                    <span className="flex-1 text-gray-700 dark:text-gray-500">0123456789</span>
-                  </Link>
+                    <span className="flex-1 text-gray-700 dark:text-gray-400">+1 (555) 123-4567</span>
+                  </div>
                 </li>
 
-                <li className="flex items-start justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end">
+                <li className="flex items-start justify-center gap-1.5 sm:justify-start">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="size-5 shrink-0 text-gray-900 dark:text-gray-500"
+                    className="size-5 shrink-0 text-gray-900 dark:text-gray-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -277,8 +192,8 @@ const Footer = () => {
                     />
                   </svg>
 
-                  <address className="-mt-0.5 flex-1 not-italic text-gray-700 dark:text-gray-500">
-                    213 Lane, London, United Kingdom
+                  <address className="-mt-0.5 flex-1 not-italic text-gray-700 dark:text-gray-400">
+                    123 Main Street, City, Country
                   </address>
                 </li>
               </ul>
@@ -286,30 +201,19 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-300 pt-6">
-          <div className="text-center sm:flex sm:justify-between sm:text-left">
-            <p className="text-sm text-gray-500">
-              <span className="block sm:inline">All rights reserved.</span>
-
+        <div className="mt-8 border-t border-gray-200 dark:border-gray-800 pt-6">
+          <div className="text-center">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              &copy; {date.getFullYear()} Evenzo. All rights reserved.
+              
+              <span className="mx-2">|</span>
+              
               <Link
-                className="inline-block text-primary hover:underline transition "
-                href="/"
-              >
-                Terms & Conditions
-              </Link>
-
-              <span>&middot;</span>
-
-              <Link
-                className="inline-block text-primary hover:underline transition "
-                href="/"
+                className="inline-block text-primary hover:underline transition"
+                href="/privacy"
               >
                 Privacy Policy
               </Link>
-            </p>
-
-            <p className="mt-4 text-sm text-gray-500 sm:order-first sm:mt-0">
-              &copy; {date.getFullYear()} Evenzo
             </p>
           </div>
         </div>
