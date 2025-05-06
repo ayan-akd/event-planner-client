@@ -29,7 +29,7 @@ export const reviewCreate = async (data: {
   }
 };
 
-//  Get Specific Review for Specific Event
+//  Get All Reviews For User
 export const getAllReviews = async () => {
   const token = await getValidToken();
   try {
@@ -43,6 +43,29 @@ export const getAllReviews = async () => {
         tags: ["REVIEWS"],
       },
     });
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+//  Get All Reviews For Admin
+export const getAllReviewsForAdmin = async () => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/reviews/admin`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        next: {
+          tags: ["REVIEWS"],
+        },
+      }
+    );
     return res.json();
   } catch (error: any) {
     return Error(error);
