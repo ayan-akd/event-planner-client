@@ -1,11 +1,14 @@
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import AdminDashboardReviewComponent from "@/components/dashboard-components/admin-dashboard/Reviews";
+import { getAllReviewsForAdmin } from "@/services/Review";
 
-export default function AdminReviewsPage() {
+export default async function AdminReviewsPage() {
+  const { data } = await getAllReviewsForAdmin();
   return (
-    <ContentLayout title="REVIEWS">
-      <div>
-        <h1>This is the AdminReviewsPage component</h1>
-      </div>
-    </ContentLayout>
+    <div>
+      <ContentLayout title="REVIEWS">
+        <AdminDashboardReviewComponent review={data} />
+      </ContentLayout>
+    </div>
   );
 }
