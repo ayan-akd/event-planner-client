@@ -16,6 +16,7 @@ import { useUser } from "@/context/UserContext";
 import { logOutUser } from "@/services/AuthServices.ts";
 import { ToggleButton } from "@/components/ui/ToggleButton";
 import { useEffect } from "react";
+import AppLogo from "../AppLogo/AppLogo";
 export default function Navbar() {
   const { user, setIsLoading, contextLogout, refreshUser } = useUser();
 
@@ -37,9 +38,10 @@ export default function Navbar() {
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
-        <h1 className=" text-lg md:text-2xl font-black flex items-center">
-          <Link href="/"> Evenzo</Link>
-        </h1>
+        {/* <h1 className=" text-lg md:text-2xl font-black flex items-center">
+          <Link href="/">EvenZo</Link>
+        </h1> */}
+        <AppLogo />
         <div className="max-w-md hidden md:flex flex-grow">
           <nav>
             <ul className="flex items-center gap-3 md:gap-7">
@@ -110,7 +112,9 @@ export default function Navbar() {
                     </Link>
                   ) : (
                     <Link href="/login">
-                      <Button effect={"shine"} className="dark:text-white">Login</Button>
+                      <Button effect={"shine"} className="dark:text-white">
+                        Login
+                      </Button>
                     </Link>
                   )}
                 </DropdownMenuItem>
@@ -146,7 +150,9 @@ export default function Navbar() {
               </DropdownMenu>
             ) : (
               <Link href="/login">
-                <Button effect={"shine"} className="dark:text-white">Login</Button>
+                <Button effect={"shine"} className="dark:text-white">
+                  Login
+                </Button>
               </Link>
             )}
             <ToggleButton />
