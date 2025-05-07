@@ -191,3 +191,28 @@ export const updateLoggedInUserSingleEvent = async (
     return Error(error);
   }
 };
+
+//  Select Hero Event By Admin
+export const selectHeroEventByAdmin = async (
+  id: string,
+  payload: { status: boolean }
+) => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${id}/hero`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+    await revalidateTag("EVENTS");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};

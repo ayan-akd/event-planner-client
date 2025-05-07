@@ -35,9 +35,20 @@ import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import ConfirmationBox from "@/components/modules/shared/ConfirmationBox";
 import Link from "next/link";
-import { adminDeleteAnySingleEvent } from "@/services/Event";
+import {
+  adminDeleteAnySingleEvent,
+  selectHeroEventByAdmin,
+} from "@/services/Event";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "@/components/modules/shared/Pagination/Pagination";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type EventProps = {
   result: TEvent[];
@@ -68,6 +79,24 @@ export default function AdminEvents({ events }: { events: EventProps }) {
       }
     } catch {
       toast.error("Something went wrong!", { id: eventDeleting });
+    }
+  };
+
+  //  Handle Hero Event
+  const handleHeroEventStatus = async (id: string, status: string) => {
+    const eventStatus = toast.loading("Event Status Updating...");
+    const modifiedStatus = {
+      status: status === "true" ? true : false,
+    };
+    try {
+      const res = await selectHeroEventByAdmin(id, modifiedStatus);
+      if (res.success) {
+        toast.success(res.message, { id: eventStatus });
+      } else {
+        toast.error(res.message, { id: eventStatus });
+      }
+    } catch {
+      toast.error("Something went wrong!", { id: eventStatus });
     }
   };
 
@@ -169,6 +198,29 @@ export default function AdminEvents({ events }: { events: EventProps }) {
       accessorKey: "organizer",
       header: "Organizer",
       cell: ({ row }) => row.original.organizer.email,
+    },
+    {
+      id: "isHero",
+      header: "Is Hero",
+      cell: ({ row }) => {
+        return (
+          <Select
+            onValueChange={(value) =>
+              handleHeroEventStatus(row.original.id, value)
+            }
+          >
+            <SelectTrigger className="w-[100px]">
+              <SelectValue placeholder={row.original.isHero ? "Yes" : "No"} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="true">True</SelectItem>
+                <SelectItem value="false">False</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        );
+      },
     },
     {
       id: "actions",
