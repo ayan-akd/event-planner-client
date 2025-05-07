@@ -9,11 +9,13 @@ import { TEvent } from "@/types/event.type";
 
 const HomePage = async () => {
   const { data } = await getAdminSelectedEvents();
-  const { data: events } = await getAllEvents(null);
+  const { data: events } = await getAllEvents(null, null, 1000);
   const upcomingEvents = events?.result?.filter((item: TEvent) => {
     const currentDate = new Date();
     const startDate = new Date(item?.startDate);
-    return startDate > currentDate;
+    if (startDate > currentDate && item.isPublic === true) {
+      return item;
+    }
   });
   return (
     <div>
