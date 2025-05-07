@@ -2,7 +2,7 @@
 
 import { getValidToken } from "@/utils/verifyToken";
 
-// Create Event
+// Update Participant Event
 export const updateParticipantStatus = async (
   payload: { status: string },
   id: string
@@ -18,6 +18,50 @@ export const updateParticipantStatus = async (
           Authorization: token,
         },
         body: JSON.stringify(payload),
+      }
+    );
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+// Join Event
+export const joinEventFreeOrPaid = async (payload: {
+  userId: string;
+  eventId: string;
+}) => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/participants/create-participant`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+// Verify Payment
+export const verifyPayment = async (orderId: string) => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/participants/verify?order_id=${orderId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
       }
     );
     return res.json();

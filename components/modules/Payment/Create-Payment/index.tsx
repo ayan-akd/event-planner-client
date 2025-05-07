@@ -20,54 +20,63 @@ import { paymentValidationSchema } from "./ValidationCreateEvent";
 import { makePayment } from "@/services/Payment";
 import { Router } from "next/router";
 
-
 interface PaymentData {
-    userId: string;
-    eventId: string;
-  }
+  userId: string;
+  eventId: string;
+}
 
-  import { useRouter } from 'next/navigation';
-const CreatePayment = ( paymentData : {paymentData: PaymentData}) => {
-  const router = useRouter()
-  const { userId, eventId } = paymentData.paymentData;
+import { useRouter } from "next/navigation";
+import { TEvent } from "@/types/event.type";
+import { joinEventFreeOrPaid } from "@/services/Participants";
+const CreatePayment = ({
+  paymentData,
+  event,
+}: {
+  paymentData: PaymentData;
+  event: TEvent;
+}) => {
+  const router = useRouter();
+  const { userId, eventId } = paymentData;
   const { setIsLoading } = useUser();
   //  Form
   const form = useForm({
-     resolver: zodResolver(paymentValidationSchema),
-     defaultValues: {
-      userId: userId,
-      eventId: eventId,
-        },
-    });
+    resolver: zodResolver(paymentValidationSchema),
+    defaultValues: {
+      title: event?.title,
+      organizer: event?.organizer?.name,
+    },
+  });
   const {
     formState: { isSubmitting },
   } = form;
 
+  //  Button Text
+  const buttonText = () => {
+    if (event.isPublic && event?.fee === 0) {
+      return "Join";
+    } else if (!event?.isPublic && event?.fee === 0) {
+      return "Request to Join";
+    } else {
+      return "Pay to Join";
+    }
+  };
   //  Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     //  Loading State
-    const createPayment = toast.loading("Payment processing...");
-
+    const createPayment = toast.loading("Processing...");
+    const modifiedData = {
+      userId,
+      eventId,
+    };
     try {
       //  Make Payment API Call
-      const res = await makePayment(data);
-      console.log("Payment Response:", res);
-      const redirectUrl = res.gateway_url;
-      console.log("Redirect URL:", redirectUrl);
-      // setIsLoading(true);
-
-      if (redirectUrl) {
-        // form.reset();
-        toast.success("Redirecting to the SSLCommerz payment gateway...", {
-          id: createPayment,
-        });
-
-        // Redirect the user to the payment gateway URL
-        // window.location.assign(redirectUrl);
-        router.push(redirectUrl)
-        
-      } else {
-        toast.error("failed to redirect for some issue");
+      const res = await joinEventFreeOrPaid(modifiedData);
+      console.log(res);
+      if (res?.data?.isPremium) {
+        router.push(res?.data?.checkout_url);
+      } else if (!res?.data?.isPremium) {
+        toast.success("Joined Successful!", { id: createPayment });
+        router.push(`/dashboard/profile`);
       }
     } catch {
       toast.error("Something went Wrong!", { id: createPayment });
@@ -79,12 +88,12 @@ const CreatePayment = ( paymentData : {paymentData: PaymentData}) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-4">
-          <FormField
+            <FormField
               control={form.control}
-              name="userId"
+              name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>User ID</FormLabel>
+                  <FormLabel>Event Title</FormLabel>
                   <FormControl>
                     <Input {...field} disabled />
                   </FormControl>
@@ -95,10 +104,10 @@ const CreatePayment = ( paymentData : {paymentData: PaymentData}) => {
 
             <FormField
               control={form.control}
-              name="eventId"
+              name="organizer"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Event ID</FormLabel>
+                  <FormLabel>Event Organizer</FormLabel>
                   <FormControl>
                     <Input {...field} disabled />
                   </FormControl>
@@ -115,7 +124,7 @@ const CreatePayment = ( paymentData : {paymentData: PaymentData}) => {
             {isSubmitting ? (
               <LoaderCircle className="animate-spin" />
             ) : (
-              "Pay Now"
+              buttonText()
             )}
           </Button>
         </form>
