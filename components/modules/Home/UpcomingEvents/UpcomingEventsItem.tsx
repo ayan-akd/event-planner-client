@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { monthNameList } from "@/constants";
 import { TEvent } from "@/types/event.type";
-import { BadgeDollarSign, Crown } from "lucide-react";
+import { BadgeDollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,7 +28,7 @@ const UpcomingEventsItem = ({ event }: { event: TEvent }) => {
             </>
           ) : (
             <>
-              <Crown size={18} /> <span>Pro</span>
+              <BadgeDollarSign size={18} /> <span>{event?.fee}</span>
             </>
           )}
         </div>

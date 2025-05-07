@@ -7,11 +7,13 @@ import { useEffect, useMemo, useState } from "react";
 import EventSkeleton from "../../shared/EventSkeleton/EventSkeleton";
 import { useSearchParams } from "next/navigation";
 import { set } from "date-fns";
+import { useUser } from "@/context/UserContext";
 
 const AllEvents = () => {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
+  const { user } = useUser();
 
   //  Get Search Params
   const searchParams = useSearchParams();
@@ -63,9 +65,14 @@ const AllEvents = () => {
               No events found
             </div>
           ) : (
-            events?.map((event: TEvent) => (
-              <EventItem key={event.id} event={event} />
-            ))
+            events
+              ?.filter((fEvent: TEvent) => {
+                if (!user) return fEvent.isPublic;
+                return true;
+              })
+              ?.map((event: TEvent) => (
+                <EventItem key={event.id} event={event} />
+              ))
           )}
         </div>
         <div className="mt-6">
