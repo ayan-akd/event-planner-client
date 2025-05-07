@@ -23,7 +23,7 @@ const EventItem = ({ event }: { event: TEvent }) => {
           {getEventStatus(event)}
         </div>
         <div className="absolute top-0 right-0 bg-primary text-white px-2 py-1 m-2 rounded-md text-sm font-semibold">
-          {event?.fee ? "Pro" : "Free"}
+          {event?.fee ? "Paid" : "Free"}
         </div>
       </div>
       <div className="p-6">
@@ -33,7 +33,10 @@ const EventItem = ({ event }: { event: TEvent }) => {
               <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
                 Organized By
               </span>
-              <span className="text-sm dark:text-black"> {event?.organizer.name}</span>
+              <span className="text-sm dark:text-black">
+                {" "}
+                {event?.organizer.name}
+              </span>
             </p>
           </div>
           <div className="flex items-center">
