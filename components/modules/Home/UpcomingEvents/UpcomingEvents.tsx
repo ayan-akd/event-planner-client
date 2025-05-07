@@ -46,24 +46,14 @@ const UpcomingEvents = ({ events }: { events: TEvent[] }) => {
           className="w-full"
         >
           <CarouselContent>
-            {/* {events?.map((item: TEvent) => (
+            {events?.slice(0, 9)?.map((item: TEvent) => (
               <CarouselItem
                 key={item?.id}
                 className="md:basis-1/2 lg:basis-1/3"
               >
                 <UpcomingEventsItem key={item.title} event={item} />
               </CarouselItem>
-            ))} */}
-            {events
-              ?.filter((upEvent: TEvent) => upEvent.isPublic)
-              ?.map((item: TEvent) => (
-                <CarouselItem
-                  key={item?.id}
-                  className="md:basis-1/2 lg:basis-1/3"
-                >
-                  <UpcomingEventsItem key={item.title} event={item} />
-                </CarouselItem>
-              ))}
+            ))}
           </CarouselContent>
         </Carousel>
         <div className="flex justify-end mt-2 gap-2">
