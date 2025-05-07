@@ -12,17 +12,18 @@ const Hero = ({ data }: { data: TEvent }) => {
 
       <div className="relative mx-auto max-w-screen-xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div className="max-w-xl text-center mx-auto">
-          <h1 className="text-3xl capitalize font-extrabold text-white sm:text-5xl">
-            {data?.title?.slice(0, 25)}
-            {/* <strong className="block font-extrabold text-primary">
-              {data?.title?.slice(10, 20)}
-            </strong> */}
+          <h1
+            title={data?.title}
+            className="text-3xl capitalize font-extrabold text-white sm:text-5xl line-clamp-1"
+          >
+            {data?.title}
           </h1>
 
-          <p className="my-2 max-w-lg text-white sm:text-xl/relaxed">
-            {/* Enjoy stress-free events with expert planning and flawless
-            execution. */}
-            {data?.description?.slice(0, 100)}
+          <p
+            title={data?.description}
+            className="my-2 max-w-lg text-white sm:text-xl/relaxed line-clamp-2"
+          >
+            {data?.description}
           </p>
           <div>
             <Link href={`/events/${data?.id}`}>

@@ -214,8 +214,8 @@ export default function AdminEvents({ events }: { events: EventProps }) {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="true">True</SelectItem>
-                <SelectItem value="false">False</SelectItem>
+                <SelectItem value="true">Yes</SelectItem>
+                <SelectItem value="false">No</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

@@ -48,7 +48,7 @@ const UpcomingEventsItem = ({ event }: { event: TEvent }) => {
           >
             {event.title}
           </Link>
-          <p className="text-gray-500 text-sm line-clamp-3">
+          <p title={event.description} className="text-gray-500 text-sm line-clamp-3">
             {event.description}
           </p>
         </div>
