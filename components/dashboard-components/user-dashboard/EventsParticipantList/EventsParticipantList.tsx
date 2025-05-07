@@ -147,10 +147,9 @@ export default function EventsParticipantList({
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="PENDING">PENDING</SelectItem>
-                <SelectItem value="APPROVED">APPROVED</SelectItem>
-                <SelectItem value="REJECTED">REJECTED</SelectItem>
-                <SelectItem value="BANNED">BANNED</SelectItem>
+                <SelectItem value="APPROVED">APPROVE</SelectItem>
+                <SelectItem value="REJECTED">REJECT</SelectItem>
+                <SelectItem value="BANNED">BAN</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
