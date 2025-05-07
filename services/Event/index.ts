@@ -65,17 +65,19 @@ export const getLoggedInUserEvent = async (
 // Get All Events
 export const getAllEvents = async (
   searchTerm: string | null,
-  page?: string
+  page?: string | null,
+  limit?: string | null | number
 ) => {
   const token = await getValidToken();
   const params = new URLSearchParams();
   const pageNumber = page || 1;
+  const limitEvent = limit || 8;
   // searchTerm
   if (searchTerm) {
     params.append("searchTerm", searchTerm.toString());
   }
   params.append("page", pageNumber.toString());
-  params.append("limit", "8");
+  params.append("limit", limitEvent.toString());
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/events?${params.toString()}`,
