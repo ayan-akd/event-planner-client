@@ -71,7 +71,6 @@ const CreatePayment = ({
     try {
       //  Make Payment API Call
       const res = await joinEventFreeOrPaid(modifiedData);
-      console.log(res);
       if (res?.data?.isPremium) {
         router.push(res?.data?.checkout_url);
       } else if (!res?.data?.isPremium) {
