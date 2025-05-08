@@ -34,16 +34,17 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CustomModal } from "@/components/modules/shared/CustomModal";
 import CreateInvite from "./invitations/CreateInvite";
+import { TParticipant } from "@/types/participant.type";
 
-export default function UserDashboardInvitationComponent({
-  invitations,
+export default function UserDashboardParticipationComponent({
+  participation,
 }: {
-  invitations: TInvitation[];
+  participation: TParticipant[];
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-
-  const columns: ColumnDef<TInvitation>[] = [
+  console.log(participation);
+  const columns: ColumnDef<TParticipant>[] = [
     {
       accessorKey: "event.title",
       header: ({ column }) => (
@@ -58,69 +59,51 @@ export default function UserDashboardInvitationComponent({
         <Badge variant="secondary">{row.original.event?.title}</Badge>
       ),
     },
+    // {
+    //   accessorKey: "inviter.name",
+    //   header: ({ column }) => (
+    //     <Button
+    //       variant="ghost"
+    //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+    //     >
+    //       Invited By <ArrowUpDown />
+    //     </Button>
+    //   ),
+    //   cell: ({ row }) => (
+    //     <Badge variant="outline">{row.original.inviter?.name}</Badge>
+    //   ),
+    // },
     {
-      accessorKey: "inviter.name",
+      accessorKey: "fee",
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Invited By <ArrowUpDown />
+          Fee <ArrowUpDown />
         </Button>
       ),
-      cell: ({ row }) => (
-        <Badge variant="outline">{row.original.inviter?.name}</Badge>
-      ),
+      cell: ({ row }) => <span>BDT{row.original.event.fee}</span>,
     },
     {
-      accessorKey: "user.name",
+      accessorKey: "hasPaid",
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Invited To <ArrowUpDown />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <Badge variant="outline">{row.original.user?.name}</Badge>
-      ),
-    },
-    {
-      accessorKey: "createdAt",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Date <ArrowUpDown />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <span className="text-sm">
-          {format(new Date(row.original.createdAt), "PPP")}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "hasRead",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Read <ArrowUpDown />
+          Has Paid <ArrowUpDown />
         </Button>
       ),
       cell: ({ row }) => (
         <Badge
           className={`${
-            row.original.hasRead
+            row.original.hasPaid
               ? "bg-blue-400 hover:bg-blue-500"
-              : "bg-amber-400 hover:bg-amber-500"
+              : "bg-rose-400 hover:bg-rose-500"
           }`}
         >
-          {row.original.hasRead ? "Yes" : "No"}
+          {row.original.hasPaid ? "Yes" : "No"}
         </Badge>
       ),
     },
@@ -138,10 +121,12 @@ export default function UserDashboardInvitationComponent({
         <Badge
           className={cn({
             "bg-green-400 hover:bg-green-500":
-              row.original.status === "ACCEPTED",
+              row.original.status === "APPROVED",
             "bg-red-400 hover:bg-red-500": row.original.status === "REJECTED",
             "bg-yellow-400 hover:bg-yellow-500":
               row.original.status === "PENDING",
+            "bg-gray-300-400 hover:bg-gray-500":
+              row.original.status === "BANNED",
           })}
         >
           {row.original.status}
@@ -149,24 +134,47 @@ export default function UserDashboardInvitationComponent({
       ),
     },
     {
+      accessorKey: "createdAt",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Start Date <ArrowUpDown />
+        </Button>
+      ),
+      cell: ({ row }) => (
+        <span className="text-sm">
+          {format(new Date(row.original?.event?.startDate), "PPP")}
+        </span>
+      ),
+    },
+
+    {
       id: "actions",
-      header: "Actions",
+      header: "Refund",
       cell: ({ row }) => {
         const invitation = row.original;
-        // For non-pending invitations, just show view button
         return (
-          <Link href={`/events/${invitation.eventId}`}>
-            <Button variant="outline" size="sm">
-              <Eye className="h-4 w-4" />
-            </Button>
-          </Link>
+          <Button
+            disabled={invitation.status === "APPROVED"}
+            className={cn({
+              "bg-green-400 hover:bg-green-500":
+                row.original.status === "PENDING",
+              "bg-rose-400 disabled:bg-rose-400 disabled:cursor-not-allowed hover:bg-red-500":
+                row.original.status === "APPROVED",
+            })}
+            size="sm"
+          >
+            Check
+          </Button>
         );
       },
     },
   ];
 
   const table = useReactTable({
-    data: invitations,
+    data: participation,
     columns,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
@@ -183,7 +191,7 @@ export default function UserDashboardInvitationComponent({
   return (
     <div className="w-full">
       <div className="flex  justify-between items-center">
-        <h1 className="text-2xl font-bold">Pending Invitations</h1>
+        <h1 className="text-2xl font-bold">My Participation</h1>
         <CustomModal
           content={<CreateInvite />}
           trigger={
@@ -216,9 +224,9 @@ export default function UserDashboardInvitationComponent({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      {invitations?.length === 0 ? (
+      {participation?.length === 0 ? (
         <div className="flex items-center justify-center h-full">
-          <h1 className="text-2xl font-bold">No Invitations Found</h1>
+          <h1 className="text-2xl font-bold">No Participation Found</h1>
         </div>
       ) : (
         <div className="rounded-md border">
