@@ -26,6 +26,25 @@ export const updateParticipantStatus = async (
   }
 };
 
+// Get All Participants for Logged In User
+export const getAllParticipantsForLoggedInUser = async () => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/participants/my-participants`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
 // Join Event
 export const joinEventFreeOrPaid = async (payload: {
   userId: string;
