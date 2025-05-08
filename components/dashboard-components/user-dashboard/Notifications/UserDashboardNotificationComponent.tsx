@@ -9,7 +9,9 @@ import { cn } from "@/lib/utils";
 import { Eye } from "lucide-react";
 import { updateInvitation } from "@/services/Invitations";
 import { toast } from "sonner";
-import { stat } from "fs";
+import { useUser } from "@/context/UserContext";
+import { joinEventFreeOrPaid } from "@/services/Participants";
+import { useRouter } from "next/navigation";
 
 export default function UserDashboardNotificationComponent({
   data,
@@ -17,6 +19,8 @@ export default function UserDashboardNotificationComponent({
   data: TInvitation[];
 }) {
   const isMobile = useIsMobile();
+  const { user } = useUser();
+  const router = useRouter();
 
   if (data.length === 0) {
     return (
@@ -37,6 +41,7 @@ export default function UserDashboardNotificationComponent({
   };
 
   const status: TInvitationStatus = "REJECTED";
+  const updateStatus: TInvitationStatus = "ACCEPTED";
 
   const handleDecline = async (id: string) => {
     const data = {
@@ -48,6 +53,33 @@ export default function UserDashboardNotificationComponent({
     }
   };
 
+  //  Handle Payment
+  const handlePayment = async (eventId: string, invitationId: string) => {
+    //  Loading State
+    const createPayment = toast.loading("Processing...");
+    const modifiedData = {
+      userId: user?.userId as string,
+      eventId,
+    };
+    try {
+      //  Make Payment API Call
+      const res = await joinEventFreeOrPaid(modifiedData);
+      if (res?.success) {
+        const data = {
+          status: updateStatus,
+        };
+        await updateInvitation(invitationId, data);
+      }
+      if (res?.data?.isPremium) {
+        router.push(res?.data?.checkout_url);
+      } else if (!res?.data?.isPremium) {
+        toast.success("Joined Successful!", { id: createPayment });
+        router.push(`/dashboard/profile`);
+      }
+    } catch {
+      toast.error("Something went Wrong!", { id: createPayment });
+    }
+  };
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Your Notifications</h1>
@@ -118,6 +150,9 @@ export default function UserDashboardNotificationComponent({
                 <div className="flex flex-wrap gap-2 pt-2">
                   {invitation.event.fee === 0 ? (
                     <Button
+                      onClick={() =>
+                        handlePayment(invitation.event.id, invitation.id)
+                      }
                       variant="default"
                       size={isMobile ? "sm" : "default"}
                       className="dark:text-white"
@@ -126,6 +161,9 @@ export default function UserDashboardNotificationComponent({
                     </Button>
                   ) : (
                     <Button
+                      onClick={() =>
+                        handlePayment(invitation.event.id, invitation.id)
+                      }
                       variant="default"
                       size={isMobile ? "sm" : "default"}
                       className="dark:text-white"
