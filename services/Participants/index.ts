@@ -1,6 +1,7 @@
 "use server";
 
 import { getValidToken } from "@/utils/verifyToken";
+import { revalidateTag } from "next/cache";
 
 // Update Participant Event
 export const updateParticipantStatus = async (
@@ -37,6 +38,9 @@ export const getAllParticipantsForLoggedInUser = async () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
+        },
+        next: {
+          tags: ["MY-PARTICIPANT"],
         },
       }
     );
@@ -83,6 +87,32 @@ export const verifyPayment = async (orderId: string) => {
         },
       }
     );
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+//  Refund Payment
+export const refundParticipantPayment = async (payload: {
+  userId: string;
+  eventId: string;
+  participantId: string;
+}) => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/participants/refund`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+    revalidateTag("MY-PARTICIPANT");
     return res.json();
   } catch (error: any) {
     return Error(error);

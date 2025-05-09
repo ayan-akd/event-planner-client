@@ -35,6 +35,7 @@ import { format } from "date-fns";
 import { CustomModal } from "@/components/modules/shared/CustomModal";
 import CreateInvite from "./invitations/CreateInvite";
 import { TParticipant } from "@/types/participant.type";
+import Refund from "@/components/modules/Payment/Refund/Refund";
 
 export default function UserDashboardParticipationComponent({
   participation,
@@ -43,7 +44,6 @@ export default function UserDashboardParticipationComponent({
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  console.log(participation);
   const columns: ColumnDef<TParticipant>[] = [
     {
       accessorKey: "event.title",
@@ -156,18 +156,24 @@ export default function UserDashboardParticipationComponent({
       cell: ({ row }) => {
         const invitation = row.original;
         return (
-          <Button
-            disabled={invitation.status === "APPROVED"}
-            className={cn({
-              "bg-green-400 hover:bg-green-500":
-                row.original.status === "PENDING",
-              "bg-rose-400 disabled:bg-rose-400 disabled:cursor-not-allowed hover:bg-red-500":
-                row.original.status === "APPROVED",
-            })}
-            size="sm"
-          >
-            Check
-          </Button>
+          <CustomModal
+            trigger={
+              <Button
+                disabled={invitation.status === "APPROVED"}
+                className={cn({
+                  "bg-green-400 hover:bg-green-500":
+                    row.original.status === "PENDING",
+                  "bg-rose-400 disabled:bg-rose-400 disabled:cursor-not-allowed hover:bg-red-500":
+                    row.original.status === "APPROVED",
+                })}
+                size="sm"
+              >
+                Check
+              </Button>
+            }
+            content={<Refund participant={invitation} />}
+            title="Confirm Refund"
+          />
         );
       },
     },
