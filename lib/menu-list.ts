@@ -6,6 +6,7 @@ import {
   Mail,
   Star,
   Users,
+  UserPlus,
 } from "lucide-react";
 
 type Submenu = {
@@ -74,6 +75,11 @@ export function getMenuList(role: string): Group[] {
           href: "/dashboard/user/invitations",
           label: "Invitations",
           icon: Mail,
+        },
+        {
+          href: "/dashboard/user/participation",
+          label: "My Participation",
+          icon: UserPlus,
         },
         {
           href: "/dashboard/user/reviews",
