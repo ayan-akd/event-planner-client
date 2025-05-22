@@ -9,7 +9,7 @@ export default function NewsLetter() {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+    <section className="py-16 bg-primary bg-gradient-to-r from-primary/90 to-primary/70 text-white shadow-md rounded-lg">
       <div className="container mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -18,31 +18,36 @@ export default function NewsLetter() {
           viewport={{ once: true }}
           className="max-w-2xl mx-auto"
         >
-          <h2 className="text-3xl font-bold mb-6">Stay Updated</h2>
-          <p className="text-lg mb-8">
+          <h2 className="text-3xl font-bold mb-6 tracking-wide drop-shadow-sm">
+            Stay Updated
+          </h2>
+          <p className="text-base mb-8 max-w-xl mx-auto drop-shadow-sm">
             Subscribe to our newsletter to receive the latest updates, event
             tips, and special offers.
           </p>
 
           <form
             onSubmit={handleNewsLetterSubmit}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto"
           >
             <input
               type="email"
               placeholder="Your email address"
-              className="px-4 py-3 rounded-lg flex-grow max-w-md border text-white  placeholder:text-white focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="px-4 py-2 rounded-md flex-grow border border-white/30 bg-white/20 text-white placeholder-white
+                     focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-60
+                     transition duration-300"
               required
             />
             <button
               type="submit"
-              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg whitespace-nowrap"
+              className="bg-white text-primary px-5 py-2 rounded-md font-semibold hover:bg-white/90
+                     transition-colors shadow-sm whitespace-nowrap"
             >
               Subscribe
             </button>
           </form>
 
-          <p className="text-sm mt-4 text-purple-200">
+          <p className="text-sm mt-5 text-white/80 italic drop-shadow-sm">
             We respect your privacy. Unsubscribe at any time.
           </p>
         </motion.div>
