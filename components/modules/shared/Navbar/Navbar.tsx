@@ -193,9 +193,11 @@ export default function Navbar() {
                 <DropdownMenuItem>
                   <Link href="/contact">Contact Us</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/dashboard/profile">Dashboard</Link>
-                </DropdownMenuItem>
+                {user && (
+                  <DropdownMenuItem>
+                    <Link href="/dashboard/profile">Dashboard</Link>
+                  </DropdownMenuItem>
+                )}
 
                 <DropdownMenuItem>
                   {user ? (
