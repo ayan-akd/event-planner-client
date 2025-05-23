@@ -73,7 +73,7 @@ export default function CommunityDetailsPage() {
       {/* Discussion Title & Description */}
       <article className="mb-12">
         <h1 className="text-4xl font-bold text-primary mb-6">{post.title}</h1>
-        <p className="text-gray-700 whitespace-pre-line leading-relaxed text-lg">
+        <p className="text-gray-700 dark:text-gray-100 whitespace-pre-line leading-relaxed text-lg">
           {post.description}
         </p>
       </article>
@@ -83,21 +83,21 @@ export default function CommunityDetailsPage() {
         <div className="flex justify-between items-center mb-6">
           <h2
             id="replies-heading"
-            className="text-3xl font-semibold text-primary"
+            className="text-3xl font-semibold text-primary dark:text-white"
           >
             💬 Replies ({replies.length})
           </h2>
           <Button
             variant="outline"
             onClick={() => setShowReplyModal(true)}
-            className="text-primary"
+            className="text-primary dark:text-white"
           >
             Add Reply
           </Button>
         </div>
 
         {replies.length === 0 && (
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-100">
             No replies yet. Be the first to reply!
           </p>
         )}
@@ -113,12 +113,12 @@ export default function CommunityDetailsPage() {
             >
               <Card className="p-6 border border-gray-200 rounded-xl">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-gray-900 dark:text-white">
                     {reply.name}
                   </span>
                   <span className="text-sm text-gray-400">{reply.time}</span>
                 </div>
-                <p className="text-gray-700">{reply.content}</p>
+                <p className="text-gray-700 dark:text-white">{reply.content}</p>
               </Card>
             </motion.div>
           ))}

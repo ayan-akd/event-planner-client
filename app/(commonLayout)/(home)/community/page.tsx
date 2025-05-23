@@ -64,11 +64,13 @@ export default function CommunityPage() {
         <h1 className="text-4xl sm:text-5xl font-bold text-primary mb-4">
           🌍 Event Community Forum
         </h1>
-        <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+        <p className="text-gray-600 dark:text-white max-w-2xl mx-auto text-lg">
           Connect with fellow organizers, exchange ideas, ask questions, and
           grow your event planning skills.
         </p>
-        <Button className="mt-6 px-6 py-2">Join the Discussion</Button>
+        <Button className="mt-6 px-6 py-2 dark:text-white">
+          <Link href="/login">Join the Discussion</Link>
+        </Button>
       </section>
 
       <section ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -80,17 +82,17 @@ export default function CommunityPage() {
             animate={controls}
             variants={cardVariants}
           >
-            <Card className="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition-shadow duration-300 h-full flex flex-col justify-between">
+            <Card className="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition-shadow duration-300 h-full flex flex-col justify-between ">
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 dark:text-white">
                   {title}
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 dark:text-gray-100 mb-4">
                   {description?.slice(0, 100)}...
                 </p>
               </div>
               <div className="flex items-center justify-between mt-4">
-                <span className="text-sm font-medium text-primary">
+                <span className="text-sm font-medium text-primary dark:text-white">
                   💬 {replies} Replies
                 </span>
                 <Link
