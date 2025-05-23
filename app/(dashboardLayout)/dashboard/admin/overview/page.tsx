@@ -5,7 +5,7 @@ import { getAllUsers } from "@/services/User";
 
 export default async function AdminReviewsPage() {
   const { data: users } = await getAllUsers();
-  const { data: events } = await getAllEvents(null);
+  const { data: events } = await getAllEvents(null, null, 200);
 
   return (
     <div>

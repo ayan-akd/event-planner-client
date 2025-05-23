@@ -53,7 +53,7 @@ const AdminDashboardOverview = ({
   // Filter out deleted
   const validEvents = events?.filter((event) => !event?.isDeleted) || [];
   const validUsers = users?.filter((user) => !user?.isDeleted) || [];
-
+  console.log(events);
   // Calculate summary data with proper fallbacks
   const totalEvents = validEvents?.length || 0;
   const upcomingEvents =
