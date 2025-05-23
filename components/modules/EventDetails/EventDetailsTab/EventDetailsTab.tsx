@@ -5,7 +5,7 @@ import { TEvent } from "@/types/event.type";
 
 export function EventDetailsTabs({ event }: { event: TEvent }) {
   return (
-    <div className="mt-10">
+    <div className="mt-10 flex justify-center items-center">
       <Tabs defaultValue="details">
         <div className="max-w-2xl">
           <TabsList className="grid w-full grid-cols-2 bg-primary/10">

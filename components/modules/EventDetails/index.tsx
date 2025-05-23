@@ -7,6 +7,7 @@ import { timeFormatter } from "@/utils/timeFormater";
 import { getCurrentUser } from "@/services/AuthServices.ts";
 import JoinEventButton from "./EventDetailsTab/JoinEventButton";
 import getEventStatus from "@/utils/getEventStatus";
+import ReviewAverage from "../shared/ReviewAverage/ReviewAverage";
 
 const EventDetails = async ({ eventId }: { eventId: string }) => {
   const { data } = await getSingleEvents(eventId);
@@ -29,7 +30,9 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
           </div>
         </div>
         <div className="bg-white rounded-md p-4">
-          <h2 className="font-bold text-xl mb-4 dark:text-black">{data?.title}</h2>
+          <h2 className="font-bold text-xl mb-4 dark:text-black">
+            {data?.title}
+          </h2>
           <p className="text-justify text-gray-500 font-light text-sm">
             {data?.description?.slice(0, 400)}
           </p>
@@ -43,7 +46,10 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
                 <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
                   Organized By
                 </span>
-                <span className="text-sm dark:text-black"> {data?.organizer.name}</span>
+                <span className="text-sm dark:text-black">
+                  {" "}
+                  {data?.organizer.name}
+                </span>
               </p>
             </div>
             <div className="flex items-center gap-1">
@@ -69,10 +75,9 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
             <p className="rounded-full px-4 py-1 bg-primary/20">
               Participants: {data?.participants?.length}
             </p>
-            <p className="rounded-full px-4 py-1 bg-primary/20 flex items-center justify-center gap-1">
-              <Star className="w-4 h-4" fill="orange" stroke="orange" />
-              Ratings ( {data?.ratings?.length || 0} )
-            </p>
+            <div className="rounded-full px-4 py-1 bg-primary/20 flex items-center justify-center gap-1">
+              <ReviewAverage reviews={data?.reviews} />
+            </div>
           </div>
           <hr />
 

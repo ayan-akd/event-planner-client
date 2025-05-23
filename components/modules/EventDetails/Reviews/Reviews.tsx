@@ -3,12 +3,17 @@ import CreateReview from "./CreateReview";
 import ReviewItem from "./ReviewItem";
 import { getSpecificReviewsForSpecificEvent } from "@/services/Review";
 import { TReview } from "@/types/review.type";
+import ReviewAverage from "../../shared/ReviewAverage/ReviewAverage";
+import { ReviewSummary } from "./ReviewSummary";
 
 const Reviews = async ({ eventId }: { eventId: string }) => {
   const { data } = await getSpecificReviewsForSpecificEvent(eventId);
   return (
     <div className="max-w-lg mt-6">
-      <div className="flex justify-around mb-4">
+      <div>
+        <ReviewSummary reviews={data} />
+      </div>
+      <div className="flex justify-around my-4">
         <h4 className="font-bold">Reviews ( {data?.length || 0} )</h4>
         <CreateReview />
       </div>
