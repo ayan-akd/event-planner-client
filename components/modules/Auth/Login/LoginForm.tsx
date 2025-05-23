@@ -20,6 +20,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { userLogin } from "@/services/AuthServices.ts";
 import { useUser } from "@/context/UserContext";
 import { PasswordInput } from "@/components/ui/password-input";
+import { Badge } from "@/components/ui/badge";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -45,14 +46,35 @@ const LoginForm = () => {
       } else {
         toast.error(res?.message, { id: loginUser });
       }
-    } catch  {
+    } catch {
       toast.error("Something went Wrong!", { id: loginUser });
     }
   };
 
+  // Handle Demo User Login
+  const handleDemoUserLogin = async () => {
+    const loginUser = toast.loading("User Login...");
+    const data = {
+      email: process.env.NEXT_PUBLIC_DEMO_USER_EMAIL,
+      password: process.env.NEXT_PUBLIC_DEMO_USER_PASSWORD,
+    };
+    try {
+      const res = await userLogin(data);
+      setIsLoading(true);
+      if (res?.success) {
+        toast.success(res?.message, { id: loginUser });
+        const redirectPath = searchParams.get("redirectPath") || "/";
+        router.push(redirectPath);
+      } else {
+        toast.error(res?.message, { id: loginUser });
+      }
+    } catch {
+      toast.error("Something went Wrong!", { id: loginUser });
+    }
+  };
   return (
     <div className="w-full min-h-screen flex justify-center items-center">
-      <div className="max-w-md w-full bg-white dark:bg-black border p-7 md:p-10 rounded">
+      <div className="relative max-w-md w-full bg-white dark:bg-black border p-7 md:p-10 rounded">
         <div className="flex gap-2 border-b pb-3 mb-6">
           <div className="space-y-1">
             <h2 className="font-bold text-lg md:text-2xl">Evenzo</h2>
@@ -82,10 +104,7 @@ const LoginForm = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <PasswordInput
-                        {...field}
-                        value={field.value || ""}
-                      />
+                      <PasswordInput {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -93,7 +112,10 @@ const LoginForm = () => {
               />
             </div>
 
-            <Button type="submit" className="w-full mt-2 dark:text-white cursor-pointer">
+            <Button
+              type="submit"
+              className="w-full mt-2 dark:text-white cursor-pointer"
+            >
               {isSubmitting ? (
                 <LoaderCircle className="animate-spin" />
               ) : (
@@ -108,6 +130,12 @@ const LoginForm = () => {
             </p>
           </form>
         </Form>
+        <Badge
+          onClick={handleDemoUserLogin}
+          className="absolute top-1 right-1 cursor-pointer flex justify-center items-center w-fit bg-primary text-white"
+        >
+          <p>Login Demo User</p>
+        </Badge>
       </div>
     </div>
   );
