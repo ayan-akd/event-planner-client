@@ -155,7 +155,14 @@ export default function Navbar() {
                   </div>
                 )}
               </li>
-
+              <li>
+                <Link
+                  href="/announcements"
+                  className={navItemClass("/announcements")}
+                >
+                  Announcements
+                </Link>
+              </li>
               <li>
                 <Link href="/about" className={navItemClass("/about")}>
                   About Us
