@@ -7,6 +7,7 @@ import {
   Star,
   Users,
   UserPlus,
+  ChartLine,
 } from "lucide-react";
 
 type Submenu = {
@@ -33,6 +34,11 @@ export function getMenuList(role: string): Group[] {
     {
       groupLabel: "Admin Controls",
       menus: [
+        {
+          href: "/dashboard/admin/overview",
+          label: "Overview",
+          icon: ChartLine,
+        },
         {
           href: "/dashboard/admin/events",
           label: "Events",
