@@ -6,6 +6,7 @@ import NewsLetter from "@/components/modules/Home/Newsletter/NewsLetter";
 import { getAdminSelectedEvents, getAllEvents } from "@/services/Event";
 import React from "react";
 import { TEvent } from "@/types/event.type";
+import PopularLocations from "@/components/modules/Home/PopularLocations/PopularLocations";
 
 const HomePage = async () => {
   const { data } = await getAdminSelectedEvents();
@@ -22,6 +23,7 @@ const HomePage = async () => {
       <Hero data={data} />
       <UpcomingEvents events={upcomingEvents} />
       <HowItsWork />
+      <PopularLocations />
       <FaqSection />
       <NewsLetter />
     </div>

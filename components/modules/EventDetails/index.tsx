@@ -7,12 +7,14 @@ import { timeFormatter } from "@/utils/timeFormater";
 import { getCurrentUser } from "@/services/AuthServices.ts";
 import JoinEventButton from "./EventDetailsTab/JoinEventButton";
 import getEventStatus from "@/utils/getEventStatus";
+import ReviewAverage from "../shared/ReviewAverage/ReviewAverage";
+import SuggestedProducts from "./EventDetailsTab/SuggestedProducts/SuggestedProducts";
+import FAQSection from "./FAQSection/FAQSection";
 
 const EventDetails = async ({ eventId }: { eventId: string }) => {
   const { data } = await getSingleEvents(eventId);
   const user = await getCurrentUser();
   const currentUserId = user ? user.userId : null;
-
   return (
     <>
       <div className="border rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-4 p-4 mt-10 md:mt-24">
@@ -29,7 +31,9 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
           </div>
         </div>
         <div className="bg-white rounded-md p-4">
-          <h2 className="font-bold text-xl mb-4 dark:text-black">{data?.title}</h2>
+          <h2 className="font-bold text-xl mb-4 dark:text-black">
+            {data?.title}
+          </h2>
           <p className="text-justify text-gray-500 font-light text-sm">
             {data?.description?.slice(0, 400)}
           </p>
@@ -43,7 +47,10 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
                 <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
                   Organized By
                 </span>
-                <span className="text-sm dark:text-black"> {data?.organizer.name}</span>
+                <span className="text-sm dark:text-black">
+                  {" "}
+                  {data?.organizer.name}
+                </span>
               </p>
             </div>
             <div className="flex items-center gap-1">
@@ -69,10 +76,9 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
             <p className="rounded-full px-4 py-1 bg-primary/20">
               Participants: {data?.participants?.length}
             </p>
-            <p className="rounded-full px-4 py-1 bg-primary/20 flex items-center justify-center gap-1">
-              <Star className="w-4 h-4" fill="orange" stroke="orange" />
-              Ratings ( {data?.ratings?.length || 0} )
-            </p>
+            <div className="rounded-full px-4 py-1 bg-primary/20 flex items-center justify-center gap-1">
+              <ReviewAverage reviews={data?.reviews} />
+            </div>
           </div>
           <hr />
 
@@ -85,6 +91,12 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
       </div>
       <div className="p-4">
         <EventDetailsTabs event={data} />
+      </div>
+      <div>
+        <SuggestedProducts isPrivate={data?.isPublic} fee={data?.fee} />
+      </div>
+      <div>
+        <FAQSection />
       </div>
     </>
   );
