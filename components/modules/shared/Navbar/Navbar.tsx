@@ -164,6 +164,11 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
+                <Link href="/community" className={navItemClass("/community")}>
+                  Community
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className={navItemClass("/about")}>
                   About Us
                 </Link>
