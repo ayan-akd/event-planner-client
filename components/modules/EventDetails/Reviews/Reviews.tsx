@@ -9,7 +9,7 @@ import { ReviewSummary } from "./ReviewSummary";
 const Reviews = async ({ eventId }: { eventId: string }) => {
   const { data } = await getSpecificReviewsForSpecificEvent(eventId);
   return (
-    <div className="max-w-lg mt-6">
+    <div className="w-full mt-6">
       <div>
         <ReviewSummary reviews={data} />
       </div>

@@ -218,3 +218,36 @@ export const selectHeroEventByAdmin = async (
     return Error(error);
   }
 };
+
+// Get Suggested Events for Event Details Page
+export const getSuggestedEvents = async (isPrivate: boolean, fee: number) => {
+  const params = new URLSearchParams();
+
+  // Select eventType based on privacy and fee
+  let eventType = "";
+
+  if (!isPrivate && fee === 0) eventType = "FREE_PUBLIC";
+  else if (!isPrivate && fee > 0) eventType = "PAID_PUBLIC";
+  else if (isPrivate && fee === 0) eventType = "FREE_PRIVATE";
+  else if (isPrivate && fee > 0) eventType = "PAID_PRIVATE";
+
+  if (eventType) {
+    params.append("eventType", eventType);
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/events?${params.toString()}`,
+      {
+        method: "GET",
+        next: {
+          tags: ["EVENTS"],
+        },
+      }
+    );
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};

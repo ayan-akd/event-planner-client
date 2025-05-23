@@ -45,22 +45,28 @@ export const ReviewSummary = ({ reviews }: Props) => {
             />
           ))}
         </div>
-        <p className="font-semibold text-gray-900">{average} out of 5</p>
+        <p className="font-semibold text-gray-900 dark:text-white">
+          {average} out of 5
+        </p>
       </div>
-      <p className="text-sm text-gray-600">{total} global ratings</p>
+      <p className="text-sm text-gray-600 dark:text-white">
+        {total} global ratings
+      </p>
 
       {/* Rating  */}
       <div className="space-y-2">
         {distribution.map(({ star, percent }) => (
           <div key={star} className="flex items-center space-x-2">
-            <span className="w-12 text-sm text-gray-700">{star} star</span>
+            <span className="w-12 text-sm text-gray-700 dark:text-white">
+              {star} star
+            </span>
             <div className="relative h-3 flex-1 rounded bg-gray-200">
               <div
                 className="absolute left-0 top-0 h-3 rounded bg-yellow-400"
                 style={{ width: `${percent}%` }}
               />
             </div>
-            <span className="w-10 text-right text-sm text-gray-700">
+            <span className="w-10 text-right text-sm text-gray-700 dark:text-white">
               {percent}%
             </span>
           </div>

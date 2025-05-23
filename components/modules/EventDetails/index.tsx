@@ -8,12 +8,13 @@ import { getCurrentUser } from "@/services/AuthServices.ts";
 import JoinEventButton from "./EventDetailsTab/JoinEventButton";
 import getEventStatus from "@/utils/getEventStatus";
 import ReviewAverage from "../shared/ReviewAverage/ReviewAverage";
+import SuggestedProducts from "./EventDetailsTab/SuggestedProducts/SuggestedProducts";
+import FAQSection from "./FAQSection/FAQSection";
 
 const EventDetails = async ({ eventId }: { eventId: string }) => {
   const { data } = await getSingleEvents(eventId);
   const user = await getCurrentUser();
   const currentUserId = user ? user.userId : null;
-
   return (
     <>
       <div className="border rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-4 p-4 mt-10 md:mt-24">
@@ -90,6 +91,12 @@ const EventDetails = async ({ eventId }: { eventId: string }) => {
       </div>
       <div className="p-4">
         <EventDetailsTabs event={data} />
+      </div>
+      <div>
+        <SuggestedProducts isPrivate={data?.isPublic} fee={data?.fee} />
+      </div>
+      <div>
+        <FAQSection />
       </div>
     </>
   );
