@@ -17,7 +17,7 @@ const FAQSection = () => {
             How do I create a new event?
           </AccordionTrigger>
           <AccordionContent className="dark:text-white/90">
-            To create a new event, go to the "Create Event" page from your
+            To create a new event, go to the &quot;Create Event&quot; page from your
             dashboard, fill in the required information including title, date,
             and description, then submit.
           </AccordionContent>
