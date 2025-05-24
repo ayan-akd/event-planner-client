@@ -48,7 +48,7 @@ export default function FilterSidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-fit p-6 w-72 transition-transform duration-300 z-50 
+        className={`fixed top-0 bg-gray-100 left-0 h-fit p-6 w-72 transition-transform duration-300 z-50 
         ${isOpen ? "translate-x-0" : "-translate-x-full"} 
         lg:translate-x-0 lg:relative lg:w-60 lg:h-fit lg:block`}
       >
@@ -61,7 +61,7 @@ export default function FilterSidebar() {
         </Button>
 
         <div className="flex gap-4 md:gap-0 md:justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold">Filter</h2>
+          <h2 className="text-xl font-semibold text-gray-600">Filter</h2>
           <Button
             size="sm"
             className="dark:text-white"
@@ -84,7 +84,9 @@ export default function FilterSidebar() {
 
         {/* Event Filter */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-4">Filter Events</h2>
+          <h2 className="text-lg font-semibold mb-4 text-gray-600">
+            Filter Events
+          </h2>
           <RadioGroup className="space-y-2">
             {EventTypes.map((eventType) => (
               <div key={eventType} className="flex items-center space-x-2">
@@ -93,7 +95,7 @@ export default function FilterSidebar() {
                   id={eventType}
                   onClick={() => handleSearchQuery("eventType", eventType)}
                 />
-                <Label className="text-gray-500 dark:text-white font-light">
+                <Label className="text-gray-500  font-light">
                   {eventType === "FREE_PUBLIC" && "Public Free"}
                   {eventType === "PAID_PUBLIC" && "Public Paid"}
                   {eventType === "FREE_PRIVATE" && "Private Free"}

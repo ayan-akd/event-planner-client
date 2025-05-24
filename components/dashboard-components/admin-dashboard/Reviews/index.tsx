@@ -179,7 +179,7 @@ export default function AdminDashboardReviewComponent({
       </div>
       {review?.length == 0 ? (
         <div className="flex items-center justify-center h-full">
-          <h1 className="text-2xl font-bold">No Events Found</h1>
+          <h1 className="text-2xl font-bold">No Reviews Found</h1>
         </div>
       ) : (
         <div className="rounded-md border">

@@ -3,7 +3,7 @@
 
 ## 🎉 Event Planner & Participation System
 
-Evenzo is a comprehensive event management platform where users can create, manage, and participate in events with integrated payment processing via SSLCommerz.
+Evenzo is a comprehensive event management platform where users can create, manage, and participate in events with integrated payment processing via Shurjopay.
 
 ## 🚀 Live Demo
 
@@ -56,7 +56,7 @@ Password: admin1234
 - **Styling:** Tailwind CSS
 - **State Management:** React Context API
 - **Authentication:** JWT
-- **Payment Gateway:** SSLCommerz
+- **Payment Gateway:** Shurjopay
 - **Deployment:** Vercel
 
 ## 📋 Prerequisites
@@ -136,13 +136,13 @@ The frontend communicates with the Evenzo backend API for all data operations. E
 
 ## 💳 Payment Integration
 
-Evenzo uses SSLCommerz for handling event registration payments:
+Evenzo uses Shurjopay for handling event registration payments:
 
 1. User selects a paid event
 2. Frontend initiates payment request to backend
-3. Backend generates SSLCommerz payment session
-4. User completes payment on SSLCommerz portal
-5. SSLCommerz redirects back to success/failure page
+3. Backend generates payment link
+4. User completes payment on Shurjopay portal
+5. User is redirected back to frontend with payment status
 6. Backend verifies payment and updates registration status
 
 ## 👥 User Roles
@@ -153,7 +153,7 @@ Evenzo uses SSLCommerz for handling event registration payments:
 ## 🐞 Troubleshooting
 
 - **API Connection Issues**: Verify that your backend server is running and the API URL is correctly set in your environment variables
-- **Payment Gateway Errors**: Check SSLCommerz credentials and connection settings
+- **Payment Gateway Errors**: Check Shurjopay credentials and connection settings
 
 
 ## 🤝 Contributing

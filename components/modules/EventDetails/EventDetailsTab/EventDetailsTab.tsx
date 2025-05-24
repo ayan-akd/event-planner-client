@@ -5,9 +5,9 @@ import { TEvent } from "@/types/event.type";
 
 export function EventDetailsTabs({ event }: { event: TEvent }) {
   return (
-    <div className="mt-10">
-      <Tabs defaultValue="details">
-        <div className="max-w-2xl">
+    <div className="mt-10 flex justify-center items-center max-w-2xl mx-auto">
+      <Tabs defaultValue="details" className="w-full">
+        <div className="w-full">
           <TabsList className="grid w-full grid-cols-2 bg-primary/10">
             <TabsTrigger value="details">Details</TabsTrigger>
             <TabsTrigger value="reviews">Reviews</TabsTrigger>

@@ -5,6 +5,7 @@ import { TEvent } from "@/types/event.type";
 import { useState } from "react";
 import { CustomModal } from "../../shared/CustomModal";
 import CreatePayment from "../../Payment/Create-Payment";
+import { useUser } from "@/context/UserContext";
 
 interface JoinEventButtonProps {
   event: TEvent;
@@ -18,6 +19,7 @@ const JoinEventButton = ({
   userId,
 }: JoinEventButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const {user} = useUser();
 
   // Check if user is already a participant
   const isParticipant =
@@ -41,6 +43,11 @@ const JoinEventButton = ({
 
   // Determine button text based on event type
   const getButtonText = () => {
+    if(user){
+      if(user.role === "ADMIN"){
+        return "Admin can't join events";
+      }
+    }
     if (!currentUserId) return "Login to Join";
     if (isParticipant) return "Already Joined";
     if (isOrganizer) return "You are the Organizer";
@@ -55,7 +62,7 @@ const JoinEventButton = ({
   };
 
   // Determine if button should be disabled
-  const isButtonDisabled = !currentUserId || isParticipant || isOrganizer;
+  const isButtonDisabled = !currentUserId || isParticipant || isOrganizer || user?.role === "ADMIN";
 
   // for payment: userId and eventId needed
   const paymentData = {
