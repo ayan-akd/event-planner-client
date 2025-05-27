@@ -28,7 +28,6 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -88,7 +87,7 @@ const LoginForm = () => {
         toast.success(`Welcome, ${role}!`, { id: loginToast });
         const redirectPath =
           searchParams.get("redirectPath") ||
-          (type === "admin" ? "/admin" : "/dashboard");
+          (type === "admin" ? "/dashboard" : "/dashboard");
         router.push(redirectPath);
       } else {
         toast.error(res?.message, { id: loginToast });
@@ -225,7 +224,7 @@ const LoginForm = () => {
 
           <CardFooter className="flex justify-center pt-0">
             <p className="text-center text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/register"
                 className="font-semibold text-primary hover:underline"
