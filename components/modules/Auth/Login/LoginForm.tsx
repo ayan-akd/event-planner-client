@@ -170,7 +170,7 @@ const LoginForm = () => {
 
                 <Button
                   type="submit"
-                  className="w-full h-10"
+                  className="w-full h-10 dark:text-white"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

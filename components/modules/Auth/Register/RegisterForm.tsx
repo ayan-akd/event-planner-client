@@ -70,7 +70,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-grid-small-black/[0.2] dark:bg-grid-small-white/[0.1] p-4">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4 md:p-8">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -170,7 +170,7 @@ const RegisterForm = () => {
 
                 <Button
                   type="submit"
-                  className="w-full h-11 rounded-lg"
+                  className="w-full h-11 rounded-lg dark:text-white"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
