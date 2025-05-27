@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Card } from "@/components/ui/card";
+import MyContainer from "@/components/modules/shared/MyContainer/MyContainer";
+import SectionTitle from "@/components/modules/shared/SectionTitle/SectionTitle";
 
 type Announcement = {
   id: number;
@@ -79,11 +81,8 @@ export default function AnnouncementsPage() {
   };
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-4xl sm:text-5xl font-extrabold mb-16 text-center text-primary tracking-tight">
-        Latest Announcements
-      </h1>
-
+    <MyContainer>
+      <SectionTitle sectionSubTitle="" sectionTitle="Latest Announcements" />
       <section
         ref={ref}
         className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
@@ -117,6 +116,6 @@ export default function AnnouncementsPage() {
           </motion.article>
         ))}
       </section>
-    </main>
+    </MyContainer>
   );
 }
