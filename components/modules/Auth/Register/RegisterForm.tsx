@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-
 import {
   Form,
   FormControl,
@@ -12,124 +11,190 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { LoaderCircle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterValidationSchema } from "./RegisterValidationSchema";
 import { userRegister } from "@/services/AuthServices.ts";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { PasswordInput } from "@/components/ui/password-input";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 const RegisterForm = () => {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(RegisterValidationSchema),
+    defaultValues: {
+      name: "",
+      username: "",
+      email: "",
+      password: "",
+    },
   });
+
   const {
     formState: { isSubmitting },
   } = form;
 
-  // Register Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const creatingUser = toast.loading("User Creating...");
+    const toastId = toast.loading("Securing your account...", {
+      description: "We're encrypting your information",
+    });
+
     try {
       const res = await userRegister(data);
       if (res?.success) {
-        toast.success(res?.message, { id: creatingUser });
+        toast.success("Welcome aboard!", {
+          id: toastId,
+          description: "Your account has been successfully created",
+        });
         router.push("/login");
       } else {
-        toast.error(res?.message, { id: creatingUser });
+        toast.error("Registration incomplete", {
+          id: toastId,
+          description: res?.message || "Please review your details",
+        });
       }
-    } catch {
-      toast.error("Something went Wrong!", { id: creatingUser });
+    } catch (error) {
+      toast.error("Secure connection failed", {
+        id: toastId,
+        description: "Please check your network and try again",
+      });
     }
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center">
-      <div className="max-w-md w-full bg-white dark:bg-black border p-7 md:p-10 rounded">
-        <div className="flex gap-2 border-b pb-3 mb-6">
-          <div className="space-y-1">
-            <h2 className="font-bold text-lg md:text-2xl">Evenzo</h2>
-            <p className="text-xs">Create Account For More Features</p>
-          </div>
-        </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="space-y-2">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Your Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <PasswordInput
-                        {...field}
-                        value={field.value || ""}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+    <div className="w-full min-h-screen flex items-center justify-center bg-grid-small-black/[0.2] dark:bg-grid-small-white/[0.1] p-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        className="w-full max-w-md"
+      >
+        <Card className="shadow-xl border-none bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+          <CardHeader className="space-y-1 text-center">
+            <h1 className="text-2xl font-bold tracking-tight">
+              Create account
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Enter your details to get started
+            </p>
+          </CardHeader>
 
-            <Button type="submit" className="w-full mt-2 dark:text-white cursor-pointer">
-              {isSubmitting ? (
-                <LoaderCircle className="animate-spin" />
-              ) : (
-                "Register"
-              )}
-            </Button>
-            <p className="mt-2 text-center text-sm">
-              Already have an account? &nbsp;
-              <Link href="/login" className="font-bold hover:underline">
-                Login
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <div className="grid gap-3">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="sr-only">Full name</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Full name"
+                            className="h-11"
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs font-light" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="sr-only">Username</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Username"
+                            className="h-11"
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs font-light" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="sr-only">Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Email address"
+                            type="email"
+                            className="h-11"
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs font-light" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="sr-only">Password</FormLabel>
+                        <FormControl>
+                          <PasswordInput
+                            {...field}
+                            placeholder="Create password"
+                            className="h-11"
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs font-light" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full h-11 rounded-lg"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : null}
+                  Create account
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+
+          <CardFooter className="flex justify-center">
+            <p className="text-center text-sm text-muted-foreground">
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Sign in
               </Link>
             </p>
-          </form>
-        </Form>
-      </div>
+          </CardFooter>
+        </Card>
+      </motion.div>
     </div>
   );
 };
