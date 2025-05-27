@@ -1,9 +1,9 @@
+"use client";
 import { CalendarDays, MapPin, Users, Ticket, DollarSign } from "lucide-react";
 import { TEvent } from "@/types/event.type";
 import { timeFormatter } from "@/utils/timeFormater";
 import Image from "next/image";
 import Link from "next/link";
-import EventItemJoinButton from "./EventItemJoinButton";
 import { useUser } from "@/context/UserContext";
 import getEventStatus from "@/utils/getEventStatus";
 import ReviewAverage from "../../shared/ReviewAverage/ReviewAverage";
@@ -11,9 +11,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+import { useRouter } from "next/navigation";
+import JoinEventButton from "../../EventDetails/EventDetailsTab/JoinEventButton";
+
 const EventItem = ({ event }: { event: TEvent }) => {
   const { user } = useUser();
-  const currentUserId = user ? user.userId : null;
+  const currentUserId = user ? user.userId : "";
 
   const status = getEventStatus(event) || "Ended";
   const statusColor = {
@@ -88,11 +91,15 @@ const EventItem = ({ event }: { event: TEvent }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mt-6">
+        <div className="grid grid-cols-2 gap-3 mt-6 items-center">
           <Button asChild variant="outline" className="w-full">
             <Link href={`/events/${event.id}`}>Details</Link>
           </Button>
-          <EventItemJoinButton event={event} currentUserId={currentUserId} />
+          <JoinEventButton
+            event={event}
+            currentUserId={currentUserId}
+            userId={currentUserId}
+          />
         </div>
       </div>
     </div>
