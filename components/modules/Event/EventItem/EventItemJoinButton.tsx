@@ -10,7 +10,10 @@ interface JoinEventButtonProps {
   currentUserId: string | null;
 }
 
-const EventItemJoinButton = ({ event, currentUserId }: JoinEventButtonProps) => {
+const EventItemJoinButton = ({
+  event,
+  currentUserId,
+}: JoinEventButtonProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,10 +31,10 @@ const EventItemJoinButton = ({ event, currentUserId }: JoinEventButtonProps) => 
     router.push(`/events/${event.id}`);
     // If user is not logged in, redirect to login page
     if (!currentUserId) {
-      router.push('/login');
+      router.push("/login");
       return;
     }
-    
+
     setIsLoading(true);
     try {
       // Handle different join flows based on event type

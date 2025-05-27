@@ -86,8 +86,8 @@ const LoginForm = () => {
       if (res?.success) {
         toast.success(`Welcome, ${role}!`, { id: loginToast });
         const redirectPath =
-          searchParams.get("redirectPath") ||
-          (type === "admin" ? "/dashboard" : "/dashboard");
+          searchParams.get("redirectPath") || (type === "admin" ? "/" : "/");
+
         router.push(redirectPath);
       } else {
         toast.error(res?.message, { id: loginToast });
