@@ -9,7 +9,7 @@ export default function NewsLetter() {
   };
 
   return (
-    <section className="py-16 bg-primary bg-gradient-to-r from-primary/90 to-primary/70 text-white shadow-md rounded-lg">
+    <section className="py-16 bg-primary bg-gradient-to-r from-primary/90 to-primary/70 text-white shadow-md rounded-lg mt-12 md:mt-28">
       <div className="container mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

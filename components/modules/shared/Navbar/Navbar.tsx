@@ -73,7 +73,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-background border-b shadow-sm transition-all duration-300">
-      <div className="container flex justify-between items-center mx-auto h-16 px-3">
+      <div className="container flex justify-between items-center mx-auto h-16">
         <AppLogo />
 
         {/* Desktop Nav */}

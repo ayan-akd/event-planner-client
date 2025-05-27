@@ -5,7 +5,7 @@ const Footer = () => {
   const date = new Date();
   return (
     <footer className="mt-12 md:mt-16 bg-white dark:bg-black">
-      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto  py-8 px-4 md:px-0 container">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           <div>
             <div className="flex justify-center sm:justify-start">
@@ -89,7 +89,9 @@ const Footer = () => {
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:col-span-2 md:grid-cols-2">
             <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900 dark:text-gray-400">Quick Links</p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-400">
+                Quick Links
+              </p>
 
               <ul className="mt-4 space-y-3 text-sm">
                 <li>
@@ -122,13 +124,13 @@ const Footer = () => {
             </div>
 
             <div className="text-center sm:text-left">
-              <p className="text-lg font-medium text-gray-900 dark:text-gray-400">Contact Us</p>
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-400">
+                Contact Us
+              </p>
 
               <ul className="mt-4 space-y-3 text-sm">
                 <li>
-                  <div
-                    className="flex items-center justify-center gap-1.5 sm:justify-start"
-                  >
+                  <div className="flex items-center justify-center gap-1.5 sm:justify-start">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="size-5 shrink-0 text-gray-900 dark:text-gray-400"
@@ -144,14 +146,14 @@ const Footer = () => {
                       />
                     </svg>
 
-                    <span className="flex-1 text-gray-700 dark:text-gray-400">info@evenzo.com</span>
+                    <span className="flex-1 text-gray-700 dark:text-gray-400">
+                      info@evenzo.com
+                    </span>
                   </div>
                 </li>
 
                 <li>
-                  <div
-                    className="flex items-center justify-center gap-1.5 sm:justify-start"
-                  >
+                  <div className="flex items-center justify-center gap-1.5 sm:justify-start">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="size-5 shrink-0 text-gray-900 dark:text-gray-400"
@@ -167,7 +169,9 @@ const Footer = () => {
                       />
                     </svg>
 
-                    <span className="flex-1 text-gray-700 dark:text-gray-400">+1 (555) 123-4567</span>
+                    <span className="flex-1 text-gray-700 dark:text-gray-400">
+                      +1 (555) 123-4567
+                    </span>
                   </div>
                 </li>
 
@@ -205,9 +209,7 @@ const Footer = () => {
           <div className="text-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               &copy; {date.getFullYear()} Evenzo. All rights reserved.
-              
               <span className="mx-2">|</span>
-              
               <Link
                 className="inline-block text-primary hover:underline transition"
                 href="/privacy"
