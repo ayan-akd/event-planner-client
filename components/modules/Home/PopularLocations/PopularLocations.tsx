@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import MyContainer from "../../shared/MyContainer/MyContainer";
 
 const cities = [
   {
@@ -38,8 +39,8 @@ const cities = [
 
 export default function PopularLocations() {
   return (
-    <section className="py-16 px-4 bg-white dark:bg-background">
-      <div className="max-w-6xl mx-auto text-center">
+    <MyContainer>
+      <div className=" text-center">
         <motion.h2
           className="text-4xl font-bold mb-4"
           initial={{ opacity: 0, y: 20 }}
@@ -84,6 +85,6 @@ export default function PopularLocations() {
           ))}
         </div>
       </div>
-    </section>
+    </MyContainer>
   );
 }

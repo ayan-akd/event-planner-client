@@ -62,9 +62,9 @@ export default function AboutPage() {
                 accessible, and enjoyable for everyone.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-400">
-                Whether you&apos;re organizing a small private gathering or a large
-                public conference, Evenzo provides the tools and platform to
-                bring people together in meaningful ways.
+                Whether you&apos;re organizing a small private gathering or a
+                large public conference, Evenzo provides the tools and platform
+                to bring people together in meaningful ways.
               </p>
             </motion.div>
             <motion.div
@@ -148,7 +148,9 @@ export default function AboutPage() {
                   <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-300 mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {item.description}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -204,7 +206,7 @@ export default function AboutPage() {
         </section>
 
         {/* Join Us CTA */}
-        <section className="py-16 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+        <section className="py-16 bg-gradient-to-r from-primary/65 to-primary text-white">
           <div className="container mx-auto px-4 text-center">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -232,7 +234,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
             >
               <Link href={"/events"}>
-                <Button className="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
+                <Button className="bg-white text-black px-8 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg">
                   Get Started
                 </Button>
               </Link>
