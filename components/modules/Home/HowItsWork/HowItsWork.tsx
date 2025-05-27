@@ -7,7 +7,7 @@ const HowItsWork = () => {
     <MyContainer>
       <div>
         <SectionTitle
-          sectionTitle="How Its Work"
+          sectionTitle="How It Works"
           sectionSubTitle="Explore events, complete your registration, and get approved to join — all in one place"
         />
       </div>
@@ -21,7 +21,6 @@ const HowItsWork = () => {
                 <Search className="md:size-10" />
               </div>
               <h3 className="text-lg font-bold ">Browse Events</h3>
-
               <p className="mt-0.5 text-sm ">
                 Explore a wide range of public and private events. Use filters
                 and search to find events that match your interests.
