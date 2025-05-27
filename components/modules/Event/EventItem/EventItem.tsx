@@ -15,7 +15,7 @@ const EventItem = ({ event }: { event: TEvent }) => {
   const { user } = useUser();
   const currentUserId = user ? user.userId : null;
 
-  const status = getEventStatus(event);
+  const status = getEventStatus(event) || "Ended";
   const statusColor = {
     upcoming:
       "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300",
@@ -24,7 +24,6 @@ const EventItem = ({ event }: { event: TEvent }) => {
     ended: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300",
     cancelled: "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300",
   }[status.toLowerCase()];
-  console.log(event);
   return (
     <div className="w-full bg-card rounded-xl shadow-sm border overflow-hidden transition-all duration-300 hover:shadow-md group h-full flex flex-col">
       <div className="relative aspect-video">
