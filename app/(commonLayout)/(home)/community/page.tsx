@@ -6,6 +6,8 @@ import { useInView } from "react-intersection-observer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import MyContainer from "@/components/modules/shared/MyContainer/MyContainer";
+import SectionTitle from "@/components/modules/shared/SectionTitle/SectionTitle";
 
 const discussions = [
   {
@@ -59,15 +61,13 @@ export default function CommunityPage() {
   };
 
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <MyContainer>
       <section className="text-center mb-16">
-        <h1 className="text-4xl sm:text-5xl font-bold text-primary mb-4">
-          🌍 Event Community Forum
-        </h1>
-        <p className="text-gray-600 dark:text-white max-w-2xl mx-auto text-lg">
-          Connect with fellow organizers, exchange ideas, ask questions, and
-          grow your event planning skills.
-        </p>
+        <SectionTitle
+          sectionSubTitle="Connect with fellow organizers, exchange ideas, ask questions, and
+          grow your event planning skills."
+          sectionTitle="🌍 Event Community Forum"
+        />
         <Button className="mt-6 px-6 py-2 dark:text-white">
           <Link href="/login">Join the Discussion</Link>
         </Button>
@@ -106,6 +106,6 @@ export default function CommunityPage() {
           </motion.div>
         ))}
       </section>
-    </main>
+    </MyContainer>
   );
 }

@@ -1,3 +1,4 @@
+import { CalendarDays, MapPin, Users, Ticket, DollarSign } from "lucide-react";
 import { TEvent } from "@/types/event.type";
 import { timeFormatter } from "@/utils/timeFormater";
 import Image from "next/image";
@@ -6,85 +7,92 @@ import EventItemJoinButton from "./EventItemJoinButton";
 import { useUser } from "@/context/UserContext";
 import getEventStatus from "@/utils/getEventStatus";
 import ReviewAverage from "../../shared/ReviewAverage/ReviewAverage";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const EventItem = ({ event }: { event: TEvent }) => {
   const { user } = useUser();
   const currentUserId = user ? user.userId : null;
+
+  const status = getEventStatus(event);
+  const statusColor = {
+    upcoming:
+      "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300",
+    ongoing:
+      "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300",
+    ended: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300",
+    cancelled: "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300",
+  }[status.toLowerCase()];
+  console.log(event);
   return (
-    <div className="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-105">
-      <div className="relative">
+    <div className="w-full bg-card rounded-xl shadow-sm border overflow-hidden transition-all duration-300 hover:shadow-md group h-full flex flex-col">
+      <div className="relative aspect-video">
         <Image
-          width={500}
-          height={500}
-          className="w-full h-64 object-cover"
+          fill
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           src={event?.image}
-          alt="Nature scene"
+          alt={event.title}
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          priority={false}
         />
-        <div className="absolute top-0 left-0 bg-primary text-white px-2 py-1 m-2 rounded-md text-sm font-semibold">
-          {getEventStatus(event)}
-        </div>
-        <div className="absolute top-0 right-0 bg-primary text-white px-2 py-1 m-2 rounded-md text-sm font-semibold">
-          {event?.fee ? "Paid" : "Free"}
+        <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
+          <Badge className={cn("px-3 py-1 text-xs font-medium", statusColor)}>
+            {status}
+          </Badge>
+          <Badge variant="secondary" className="px-3 py-1 text-xs font-medium">
+            {event?.fee ? "Paid" : "Free"}
+          </Badge>
         </div>
       </div>
-      <div className="p-6">
-        <div className="flex justify-between items-center gap-2">
-          <div>
-            <p className="space-x-[1px]">
-              <span className="text-xs bg-primary/80 py-[1px] px-1 rounded text-white">
-                Organized By
-              </span>
-              <span className="text-sm dark:text-black">
-                {event?.organizer.name}
-              </span>
-            </p>
-          </div>
-          <div className="flex items-center">
-            <dt className="text-gray-700">
-              <span className="sr-only"> Published on </span>
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="size-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-                />
-              </svg>
-            </dt>
-
-            <dd className="text-xs text-gray-700">
-              {timeFormatter(event.startDate)}
-            </dd>
-          </div>
-        </div>
-        <h2 className="text-lg md:text-xl 2xl:text-2xl font-bold mb-2 text-gray-800">
-          {event?.title}
-        </h2>
-        <p className="text-gray-600 mb-4">
-          {event?.description?.slice(0, 150)}{" "}
-          <Link
-            className="text-sm text-primary italic font-bold"
-            href={`/events/${event.id}`}
-          >
-            [Details]
-          </Link>
-        </p>
-        <div className="flex items-center mb-4">
-          <div className="text-gray-600 ml-1">
-            <ReviewAverage reviews={event?.reviews} />
-          </div>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-lg md:text-xl 2xl:text-2xl font-bold text-gray-800">
-            ${event?.fee}
+      <div className="p-5 flex-1 flex flex-col">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
+          <span className="inline-flex items-center gap-1">
+            <Users className="h-4 w-4" />
+            {event?.organizer.name}
           </span>
+          <span className="mx-1 hidden sm:inline">•</span>
+          <span className="inline-flex items-center gap-1">
+            <MapPin className="h-4 w-4" />
+            {event?.type || "Online"}
+          </span>
+        </div>
+
+        <h3 className="text-xl font-semibold tracking-tight line-clamp-2 mt-3">
+          {event?.title}
+        </h3>
+
+        <p className="text-sm text-muted-foreground line-clamp-3 mt-2 mb-4 flex-1">
+          {event?.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2 pt-2 text-sm">
+          <div className="flex items-center gap-1.5 bg-accent/50 rounded-full px-3 py-1">
+            <CalendarDays className="h-4 w-4 text-muted-foreground" />
+            <span>{timeFormatter(event.startDate)}</span>
+          </div>
+          {event.fee > 0 && (
+            <div className="flex items-center gap-1.5 bg-accent/50 rounded-full px-3 py-1">
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <span>${event.fee.toFixed(2)}</span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between pt-4 mt-4 border-t gap-4 flex-wrap">
+          <div className="flex items-center gap-2">
+            <ReviewAverage reviews={event?.reviews} />
+            <span className="text-sm text-muted-foreground">
+              {event?.reviews?.length || 0} reviews
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 mt-6">
+          <Button asChild variant="outline" className="w-full">
+            <Link href={`/events/${event.id}`}>Details</Link>
+          </Button>
           <EventItemJoinButton event={event} currentUserId={currentUserId} />
         </div>
       </div>
